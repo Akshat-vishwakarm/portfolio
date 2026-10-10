@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Akshat Vishwakarma | AI &amp; ML Engineer</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-fixed": "#2e1500",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#2e3038",
+                        "on-tertiary-container": "#fffbff",
+                        "primary-container": "#2c70e2",
+                        "surface-bright": "#faf9ff",
+                        "surface-container-high": "#e7e7f1",
+                        "surface-tint": "#0059c6",
+                        "inverse-primary": "#afc6ff",
+                        "background": "#faf9ff",
+                        "secondary-container": "#8ab7fe",
+                        "on-secondary-container": "#084787",
+                        "on-tertiary-fixed-variant": "#6d3a00",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#eff0fa",
+                        "secondary": "#2d5fa0",
+                        "tertiary-fixed-dim": "#ffb77b",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#004398",
+                        "secondary-fixed": "#d5e3ff",
+                        "on-primary-fixed": "#001a43",
+                        "on-background": "#191b22",
+                        "surface-container-low": "#f2f3fd",
+                        "primary": "#0057c2",
+                        "on-surface-variant": "#424753",
+                        "on-primary-container": "#fefcff",
+                        "on-secondary-fixed": "#001b3c",
+                        "surface-container": "#ecedf7",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#afc6ff",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdcc2",
+                        "outline": "#727785",
+                        "surface-container-highest": "#e1e2ec",
+                        "surface": "#faf9ff",
+                        "on-secondary": "#ffffff"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.25rem",
+                        "3xl": "1.875rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "section-margin": "120px",
+                        "container-padding": "40px",
+                        "card-gap": "32px",
+                        "gutter": "24px",
+                        "unit": "8px"
+                    },
+                    fontFamily: {
+                        "headline-md": ["Montserrat", "sans-serif"],
+                        "headline-lg": ["Montserrat", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "display": ["Montserrat", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "label-caps": ["Inter", "sans-serif"]
+                    },
+                    fontSize: {
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        :root {
+            --bg-color: #f7f8fd;
+            --text-color: #191b22;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: transparent;
+            color: #191b22;
+            transition: color 0.3s ease;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .dark body, html.dark body {
+            background-color: transparent;
+            color: #f1f5f9;
+        }
+
+        /* ==============================================================
+           SUBTLE GLASSMORPHISM SYSTEM (MINIMAL, MODERN, TRANSLUCENT)
+           ============================================================== */
+        
+        /* 1. Primary Glass Panels, Cards & Boxes (Ultra-Frosted, Translucent Glass) */
+        .glass-panel, .neumorph-extruded {
+            background: rgba(255, 255, 255, 0.45) !important;
+            backdrop-filter: blur(24px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.6) !important;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+        }
+        .dark .glass-panel, .dark .neumorph-extruded {
+            background: rgba(255, 255, 255, 0.06) !important;
+            backdrop-filter: blur(24px) saturate(190%) !important;
+            -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.16) !important;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+        }
+
+        /* 2. Nested Glass Boxes / Stats / Inner Wells */
+        .glass-nested, .neumorph-inset {
+            background: rgba(255, 255, 255, 0.35) !important;
+            backdrop-filter: blur(16px) saturate(170%) !important;
+            -webkit-backdrop-filter: blur(16px) saturate(170%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.5) !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+        }
+        .dark .glass-nested, .dark .neumorph-inset {
+            background: rgba(255, 255, 255, 0.04) !important;
+            backdrop-filter: blur(16px) saturate(170%) !important;
+            -webkit-backdrop-filter: blur(16px) saturate(170%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+        }
+
+        /* 3. Glass Form Inputs & Controls */
+        .glass-input {
+            background: rgba(255, 255, 255, 0.5) !important;
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.55) !important;
+            color: #0f172a !important;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03) !important;
+            transition: all 0.2s ease !important;
+        }
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.7) !important;
+            border-color: #0052cc !important;
+            box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.2) !important;
+        }
+        .dark .glass-input {
+            background: rgba(255, 255, 255, 0.05) !important;
+            backdrop-filter: blur(16px) !important;
+            -webkit-backdrop-filter: blur(16px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            color: #f8fafc !important;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+        }
+        .dark .glass-input:focus {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: #60a5fa !important;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3) !important;
+        }
+
+        /* 4. Glowing Frosted Glass Buttons (Transparent, Blurred & Luminous) */
+        .hero-btn-primary {
+            background: linear-gradient(135deg, rgba(0, 82, 204, 0.45), rgba(59, 130, 246, 0.3)) !important;
+            backdrop-filter: blur(18px) saturate(190%) !important;
+            -webkit-backdrop-filter: blur(18px) saturate(190%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.35) !important;
+            color: #ffffff !important;
+            box-shadow: 0 8px 25px rgba(0, 82, 204, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+        .hero-btn-primary:hover {
+            background: linear-gradient(135deg, rgba(0, 82, 204, 0.65), rgba(59, 130, 246, 0.5)) !important;
+            border-color: rgba(255, 255, 255, 0.6) !important;
+            box-shadow: 0 12px 32px rgba(0, 82, 204, 0.55), 0 0 20px rgba(96, 165, 250, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+            transform: translateY(-2px);
+        }
+
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.5) !important;
+            backdrop-filter: blur(16px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.6) !important;
+            color: #0f172a !important;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.7) !important;
+            border-color: rgba(255, 255, 255, 0.85) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+        }
+        .glass-btn:active {
+            transform: translateY(0);
+        }
+        .dark .glass-btn {
+            background: rgba(255, 255, 255, 0.08) !important;
+            backdrop-filter: blur(16px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.22) !important;
+            color: #f8fafc !important;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+        }
+        .dark .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.18) !important;
+            border-color: rgba(255, 255, 255, 0.45) !important;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45), 0 0 15px rgba(255, 255, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+        }
+
+        .glass-control {
+            background: rgba(255, 255, 255, 0.55) !important;
+            backdrop-filter: blur(16px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.6) !important;
+            color: #0f172a !important;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+        .glass-control:hover {
+            background: rgba(255, 255, 255, 0.75) !important;
+            color: #0052cc !important;
+            transform: scale(1.06);
+        }
+        .glass-control:active {
+            transform: scale(0.97);
+        }
+        .dark .glass-control {
+            background: rgba(255, 255, 255, 0.08) !important;
+            backdrop-filter: blur(16px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            color: #f8fafc !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+        }
+        .dark .glass-control:hover {
+            background: rgba(255, 255, 255, 0.18) !important;
+            border-color: rgba(96, 165, 250, 0.6) !important;
+            color: #60a5fa !important;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(96, 165, 250, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+        }
+
+        /* 5. Navigation & Footer Glass Sheets */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.55) !important;
+            backdrop-filter: blur(24px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.45) !important;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05) !important;
+        }
+        .dark .glass-nav {
+            background: rgba(10, 10, 18, 0.45) !important;
+            backdrop-filter: blur(24px) saturate(190%) !important;
+            -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        .glass-footer {
+            background: rgba(255, 255, 255, 0.5) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.4) !important;
+        }
+        .dark .glass-footer {
+            background: rgba(10, 10, 18, 0.4) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+
+        /* 6. Modal Floating Glass Surface */
+        .glass-modal {
+            background: rgba(255, 255, 255, 0.7) !important;
+            backdrop-filter: blur(32px) saturate(200%) !important;
+            -webkit-backdrop-filter: blur(32px) saturate(200%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.8) !important;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+        }
+        .dark .glass-modal {
+            background: rgba(10, 15, 28, 0.55) !important;
+            backdrop-filter: blur(32px) saturate(200%) !important;
+            -webkit-backdrop-filter: blur(32px) saturate(200%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+        }
+
+        /* 7. High-Contrast Hero Typography Tokens */
+        .hero-title-black {
+            color: #090d16 !important;
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.95), 0 0 25px rgba(255, 255, 255, 0.85);
+        }
+        .dark .hero-title-black {
+            color: #ffffff !important;
+            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9), 0 0 35px rgba(0, 0, 0, 0.95);
+        }
+
+        .hero-title-blue {
+            color: #0047ba !important;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.95), 0 0 25px rgba(0, 71, 186, 0.25);
+        }
+        .dark .hero-title-blue {
+            color: #60a5fa !important;
+            text-shadow: 0 0 25px rgba(96, 165, 250, 0.5), 0 2px 12px rgba(0, 0, 0, 0.9);
+        }
+
+        .hero-badge-pill {
+            background: rgba(255, 255, 255, 0.6) !important;
+            backdrop-filter: blur(16px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+            color: #090d16 !important;
+            border: 1px solid rgba(255, 255, 255, 0.7) !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+        .dark .hero-badge-pill {
+            background: rgba(255, 255, 255, 0.08) !important;
+            backdrop-filter: blur(16px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+            color: #34d399 !important;
+            border: 1px solid rgba(255, 255, 255, 0.22) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        }
+
+        /* 8. Video Scrim (Fades in exclusively when light mode is toggled) */
+        #video-scrim {
+            opacity: 0;
+            background: rgba(248, 250, 252, 0.88);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+        }
+        html.light #video-scrim, html:not(.dark) #video-scrim {
+            opacity: 1 !important;
+        }
+        html.dark #video-scrim {
+            opacity: 0 !important;
+        }
+
+
+        /* Material Symbols */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        /* Modal Animations */
+        #case-study-modal {
+            transition: opacity 0.35s ease-out, visibility 0.35s;
+        }
+        #case-study-modal.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        #case-study-content {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease-out;
+            transform: translateY(40px);
+            opacity: 0;
+        }
+        #case-study-modal:not(.hidden) #case-study-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Custom Glass Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(247, 248, 253, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 87, 194, 0.45);
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 87, 194, 0.7);
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: rgba(13, 15, 23, 0.5);
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: rgba(175, 198, 255, 0.35);
+        }
+
+        /* ==============================================================
+           TYPEWRITER ANIMATION CURSOR & STYLES
+           ============================================================== */
+        .typewriter-cursor {
+            display: inline-block;
+            margin-left: 4px;
+            font-weight: 300;
+            color: currentColor;
+            animation: typewriterBlink 0.85s infinite ease-in-out;
+            user-select: none;
+        }
+
+        @keyframes typewriterBlink {
+            0%, 45% { opacity: 1; }
+            50%, 95% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .typewriter-cursor {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="font-body-md selection:bg-primary/20 text-on-surface dark:text-slate-100 bg-transparent transition-colors duration-300">
+
+<!-- Fixed Background Video (Original, No Gradients, No Color Tint) -->
+<div class="fixed inset-0 pointer-events-none -z-20 overflow-hidden bg-black" aria-hidden="true">
+    <video id="bg-video" autoplay loop muted playsinline webkit-playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover">
+        <source src="bg-video.mp4" type="video/mp4">
+        <source src="Untitled%20design.mp4" type="video/mp4">
+        <source src="Untitled design.mp4" type="video/mp4">
+    </video>
+    <div id="video-scrim" class="absolute inset-0 pointer-events-none"></div>
+</div>
+
+<!-- Top Navigation Bar with Mobile Responsiveness -->
+<nav class="fixed top-0 w-full z-50 glass-nav transition-colors duration-300">
+    <div class="flex justify-between items-center max-w-[1280px] mx-auto px-4 sm:px-gutter py-3.5 sm:py-4">
+        <a href="#home" class="font-display text-2xl font-black text-slate-900 dark:text-white tracking-tighter hover:opacity-85 transition-opacity">
+            AKSHAT
+        </a>
+        
+        <!-- Desktop Nav Links -->
+        <div class="hidden md:flex items-center gap-8 text-sm font-bold">
+            <a class="nav-link text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 transition-colors duration-200" href="#home">Home</a>
+            <a class="nav-link text-slate-800 dark:text-slate-300 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#about">About</a>
+            <a class="nav-link text-slate-800 dark:text-slate-300 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#coding">Coding</a>
+            <a class="nav-link text-slate-800 dark:text-slate-300 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#skills">Skills</a>
+            <a class="nav-link text-slate-800 dark:text-slate-300 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#projects">Projects</a>
+            <a class="nav-link text-slate-800 dark:text-slate-300 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#hackathons">Achievements</a>
+            <a class="nav-link text-slate-800 dark:text-slate-300 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-200" href="#contact">Contact</a>
+        </div>
+
+        <!-- Right Side Controls: GitHub & Mobile Menu Toggle -->
+        <div class="flex items-center gap-2.5 sm:gap-4">
+            <a class="hidden sm:flex px-5 sm:px-6 py-2.5 rounded-full hero-btn-primary font-bold text-sm items-center gap-2 transition-transform" href="https://github.com/Akshat-vishwakarm" target="_blank" rel="noopener noreferrer">
+                <span class="material-symbols-outlined text-base">code</span>
+                GitHub
+            </a>
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobile-menu-btn" aria-label="Toggle navigation menu" class="md:hidden w-10 h-10 rounded-full glass-control flex items-center justify-center text-primary dark:text-primary-fixed-dim cursor-pointer" onclick="toggleMobileMenu()">
+                <span id="mobile-menu-icon" class="material-symbols-outlined text-xl">menu</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Drawer Menu (Hidden by default, slides down smoothly) -->
+    <div id="mobile-drawer" class="hidden md:hidden border-t border-white/20 dark:border-white/10 px-6 py-5 glass-panel transition-all duration-300">
+        <div class="flex flex-col gap-3 text-base font-bold">
+            <a class="mobile-nav-link text-primary dark:text-primary-fixed-dim py-1.5 flex items-center gap-2" href="#home" onclick="closeMobileMenu()">
+                <span class="material-symbols-outlined text-lg">home</span> Home
+            </a>
+            <a class="mobile-nav-link text-slate-800 dark:text-slate-200 hover:text-primary dark:hover:text-primary-fixed-dim py-1.5 flex items-center gap-2" href="#about" onclick="closeMobileMenu()">
+                <span class="material-symbols-outlined text-lg">person</span> About
+            </a>
+            <a class="mobile-nav-link text-slate-800 dark:text-slate-200 hover:text-primary dark:hover:text-primary-fixed-dim py-1.5 flex items-center gap-2" href="#coding" onclick="closeMobileMenu()">
+                <span class="material-symbols-outlined text-lg">terminal</span> Coding Journey
+            </a>
+            <a class="mobile-nav-link text-slate-800 dark:text-slate-200 hover:text-primary dark:hover:text-primary-fixed-dim py-1.5 flex items-center gap-2" href="#skills" onclick="closeMobileMenu()">
+                <span class="material-symbols-outlined text-lg">psychology</span> Skills
+            </a>
+            <a class="mobile-nav-link text-slate-800 dark:text-slate-200 hover:text-primary dark:hover:text-primary-fixed-dim py-1.5 flex items-center gap-2" href="#projects" onclick="closeMobileMenu()">
+                <span class="material-symbols-outlined text-lg">folder_special</span> Projects
+            </a>
+            <a class="mobile-nav-link text-slate-800 dark:text-slate-200 hover:text-primary dark:hover:text-primary-fixed-dim py-1.5 flex items-center gap-2" href="#hackathons" onclick="closeMobileMenu()">
+                <span class="material-symbols-outlined text-lg">emoji_events</span> Achievements
+            </a>
+            <a class="mobile-nav-link text-slate-800 dark:text-slate-200 hover:text-primary dark:hover:text-primary-fixed-dim py-1.5 flex items-center gap-2" href="#contact" onclick="closeMobileMenu()">
+                <span class="material-symbols-outlined text-lg">mail</span> Contact
+            </a>
+            <a class="flex sm:hidden mt-3 px-5 py-3 rounded-2xl hero-btn-primary font-bold text-sm items-center justify-center gap-2" href="https://github.com/Akshat-vishwakarm" target="_blank" rel="noopener noreferrer">
+                <span class="material-symbols-outlined text-base">code</span>
+                Visit GitHub Profile
+            </a>
+        </div>
+    </div>
+</nav>
+
+<main class="w-full">
+    <!-- ==============================================================
+         HERO SECTION WITH TYPEWRITER ANIMATION & MOBILE OPTIMIZATIONS
+         ============================================================== -->
+    <section id="home" class="min-h-screen flex flex-col justify-between items-center px-4 sm:px-8 pt-24 sm:pt-28 pb-10 sm:pb-12 relative z-10 max-w-[1280px] mx-auto">
+        <!-- Top Header in Hero: Identity Pill -->
+        <div class="pt-6 sm:pt-12 text-center w-full">
+            <div class="inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full hero-badge-pill text-[11px] sm:text-xs font-bold tracking-widest uppercase mb-3 max-w-full">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+                <span class="truncate sm:overflow-visible">Akshat Vishwakarma &bull; AI &amp; ML Engineer</span>
+            </div>
+            <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-200 tracking-wide px-2">
+                Deep Learning &bull; Neural Systems &bull; Intelligent Software
+            </p>
+        </div>
+
+        <!-- Center Stage: The Hero Statement with Typewriter Animation -->
+        <div class="w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center my-auto py-6 sm:py-8 px-2">
+            <!-- Line 1: BUILDING -->
+            <div class="my-1 sm:my-2">
+                <h1 class="text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-black font-display tracking-tight hero-title-black uppercase select-none">
+                    BUILDING
+                </h1>
+            </div>
+
+            <!-- Line 2: Typewriter Animated Changing Text -->
+            <div class="my-1 sm:my-2 min-h-[2.8em] sm:min-h-[1.5em] flex items-center justify-center">
+                <h2 class="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold font-display tracking-tight hero-title-blue uppercase select-none inline-flex items-center text-center">
+                    <span id="typewriter-text"></span><span class="typewriter-cursor">|</span>
+                </h2>
+            </div>
+
+            <!-- Line 3: THAT SOLVE REAL PROBLEMS. -->
+            <div class="my-1 sm:my-2">
+                <h2 class="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-black font-display tracking-tight hero-title-black uppercase select-none">
+                    THAT SOLVE REAL PROBLEMS.
+                </h2>
+            </div>
+        </div>
+
+        <!-- Bottom Hero Controls & CTA Buttons -->
+        <div class="w-full max-w-xl mx-auto pb-4 flex flex-col items-center gap-5">
+            <div id="hero-actions" class="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-3 sm:gap-4 w-full sm:w-auto px-4 sm:px-0">
+                <a class="w-full sm:w-auto justify-center px-7 py-3.5 rounded-xl hero-btn-primary font-bold text-sm tracking-wide shadow-lg flex items-center gap-2 cursor-pointer" href="#projects">
+                    View Projects
+                    <span class="material-symbols-outlined text-base">arrow_forward</span>
+                </a>
+                <a class="w-full sm:w-auto text-center px-7 py-3.5 glass-btn rounded-xl font-bold text-sm tracking-wide cursor-pointer" href="#about">
+                    Explore Journey
+                </a>
+                <div class="flex items-center justify-center gap-2 pt-1 sm:pt-0">
+                    <a aria-label="GitHub Profile" class="w-11 h-11 flex items-center justify-center glass-control rounded-full transition-colors" href="https://github.com/Akshat-vishwakarm" target="_blank" rel="noopener noreferrer">
+                        <span class="material-symbols-outlined text-lg" data-icon="code">code</span>
+                    </a>
+                    <a aria-label="LinkedIn Profile" class="w-11 h-11 flex items-center justify-center glass-control rounded-full transition-colors" href="https://www.linkedin.com/in/akshat-pankaj-vishwakarma-8a4246327" target="_blank" rel="noopener noreferrer">
+                        <span class="material-symbols-outlined text-lg" data-icon="share">share</span>
+                    </a>
+                    <a aria-label="Contact Akshat" class="w-11 h-11 flex items-center justify-center glass-control rounded-full transition-colors" href="#contact">
+                        <span class="material-symbols-outlined text-lg" data-icon="mail">mail</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <a href="#about" class="flex items-center gap-2.5 px-5 py-2.5 rounded-full glass-nested text-xs font-bold text-slate-800 dark:text-slate-300 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors cursor-pointer">
+                <span>EXPLORE PORTFOLIO</span>
+                <span class="material-symbols-outlined text-sm animate-bounce">south</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ==============================================================
+         ABOUT SECTION
+         ============================================================== -->
+    <section class="max-w-[1280px] mx-auto px-gutter py-24 scroll-mt-20" id="about">
+        <div class="text-center mb-16">
+            <span class="text-xs font-bold uppercase tracking-widest text-primary dark:text-primary-fixed-dim mb-2 block">
+                Who Am I?
+            </span>
+            <h2 class="font-display text-4xl sm:text-5xl font-extrabold text-on-surface dark:text-slate-50 uppercase tracking-tight">
+                ABOUT ME
+            </h2>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="p-8 sm:p-12 rounded-3xl glass-panel">
+                <h3 class="font-headline-lg text-2xl sm:text-3xl md:text-4xl font-extrabold text-primary dark:text-primary-fixed-dim mb-3 text-center sm:text-left">
+                    Hi, I'm Akshat Vishwakarma.
+                </h3>
+                <p class="font-headline-md text-base sm:text-lg font-bold text-on-surface dark:text-slate-100 mb-6 text-center sm:text-left leading-snug">
+                    Building intelligent systems. Designing meaningful experiences. Solving real-world problems.
+                </p>
+                <div class="space-y-4 font-body-lg text-sm sm:text-base text-on-surface-variant dark:text-slate-300 leading-relaxed mb-8 text-center sm:text-left">
+                    <p>
+                        I'm a third-year B.Tech Computer Science student specializing in Artificial Intelligence and Machine Learning at Sanjivani University. I enjoy turning complex ideas into practical products through machine learning, software engineering, and thoughtful design.
+                    </p>
+                    <p>
+                        From developing AI-powered platforms like GeneGuard and SecureSupply to building solutions for real-world challenges, I love experimenting with technology, learning by building, and pushing beyond what I already know.
+                    </p>
+                    <p>
+                        I've participated in 7+ national hackathons and an international hackathon, including a <strong class="text-on-surface dark:text-slate-100 font-semibold">Top 35 finish at SunHacK International 2025</strong>. Alongside development, I work in graphic design and UI/UX, bringing a balance of technical thinking and visual creativity to everything I build.
+                    </p>
+                    <p class="font-bold text-primary dark:text-primary-fixed-dim pt-1 tracking-wide">
+                        Curious by nature. Builder by choice. Always learning.
+                    </p>
+                </div>
+                <div class="grid grid-cols-3 gap-3 sm:gap-6">
+                    <div class="p-4 sm:p-5 rounded-2xl glass-nested text-center">
+                        <div class="text-primary dark:text-primary-fixed-dim font-black text-2xl sm:text-3xl">15+</div>
+                        <div class="text-[11px] font-bold text-on-surface-variant dark:text-slate-400 uppercase tracking-wider mt-1.5">Projects</div>
+                    </div>
+                    <div class="p-4 sm:p-5 rounded-2xl glass-nested text-center">
+                        <div class="text-primary dark:text-primary-fixed-dim font-black text-2xl sm:text-3xl">8+</div>
+                        <div class="text-[11px] font-bold text-on-surface-variant dark:text-slate-400 uppercase tracking-wider mt-1.5">Hackathons</div>
+                    </div>
+                    <div class="p-4 sm:p-5 rounded-2xl glass-nested text-center">
+                        <div class="text-primary dark:text-primary-fixed-dim font-black text-2xl sm:text-3xl">30+</div>
+                        <div class="text-[11px] font-bold text-on-surface-variant dark:text-slate-400 uppercase tracking-wider mt-1.5">Repos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==============================================================
+         CODING JOURNEY SECTION
+         ============================================================== -->
+    <section class="max-w-[1280px] mx-auto px-gutter py-24 scroll-mt-20" id="coding">
+        <div class="text-center mb-16">
+            <span class="text-xs font-bold uppercase tracking-widest text-primary dark:text-primary-fixed-dim mb-2 block">
+                Milestones &bull; Analytics
+            </span>
+            <h2 class="font-display text-4xl sm:text-5xl font-extrabold text-on-surface dark:text-slate-50 uppercase tracking-tight">
+                CODING JOURNEY
+            </h2>
+        </div>
+
+        <div class="max-w-md mx-auto">
+            <!-- GitHub -->
+            <a href="https://github.com/Akshat-vishwakarm" target="_blank" rel="noopener noreferrer" class="p-8 rounded-3xl glass-panel hover:-translate-y-1 transition-all duration-300 block group">
+                <div class="flex items-center justify-between mb-8">
+                    <span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim text-4xl" data-icon="terminal">terminal</span>
+                    <div class="flex items-center gap-1.5 px-3 py-1 rounded-full glass-nested text-emerald-600 dark:text-emerald-400 font-bold text-xs uppercase tracking-wider">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Live Activity
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="h-24 w-full glass-nested rounded-xl overflow-hidden p-3 flex flex-col justify-center items-center">
+                        <div class="text-3xl font-black text-primary dark:text-primary-fixed-dim" id="gh-card-total">202</div>
+                        <div class="text-[11px] font-bold text-on-surface-variant dark:text-slate-400 uppercase tracking-wider mt-0.5">Yearly Contributions</div>
+                    </div>
+                    <div class="flex justify-between font-semibold text-on-surface-variant dark:text-slate-400 text-sm">
+                        <span>Public Repos</span>
+                        <span class="font-bold text-on-surface dark:text-slate-100">26</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Live GitHub Contribution Heatmap Showcase -->
+        <div class="mt-8 p-6 sm:p-8 rounded-3xl glass-panel">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full glass-nested flex items-center justify-center text-primary dark:text-primary-fixed-dim">
+                        <span class="material-symbols-outlined text-xl">dataset</span>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h4 class="font-bold text-on-surface dark:text-slate-50 text-base">Live GitHub Contribution Matrix</h4>
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold glass-nested text-emerald-600 dark:text-emerald-400">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                Live Sync
+                            </span>
+                        </div>
+                        <p class="text-xs text-on-surface-variant dark:text-slate-400">
+                            Live telemetry from <a href="https://github.com/Akshat-vishwakarm" target="_blank" rel="noopener noreferrer" class="hover:underline text-primary dark:text-primary-fixed-dim font-bold">github.com/Akshat-vishwakarm</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 text-xs">
+                    <div class="text-right">
+                        <span class="text-on-surface-variant dark:text-slate-400 block text-[11px]">Past Year Activity</span>
+                        <span id="gh-heatmap-total" class="font-black text-primary dark:text-primary-fixed-dim text-sm">202 Contributions</span>
+                    </div>
+                    <a href="https://github.com/Akshat-vishwakarm" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl glass-btn text-primary dark:text-primary-fixed-dim text-xs font-bold flex items-center gap-1.5 hover:scale-105 transition-transform">
+                        <span>View Profile</span>
+                        <span class="material-symbols-outlined text-xs">open_in_new</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Mobile swipe hint -->
+            <div class="sm:hidden flex items-center justify-end gap-1.5 text-[11px] text-primary dark:text-primary-fixed-dim font-bold mb-2">
+                <span>Swipe to explore full matrix</span>
+                <span class="material-symbols-outlined text-sm">swipe</span>
+            </div>
+
+            <!-- Heatmap Container: Live SVG with dark mode adaptability -->
+            <div class="p-4 sm:p-6 rounded-2xl glass-nested overflow-x-auto">
+                <div class="min-w-[700px] flex flex-col gap-3">
+                    <img src="https://ghchart.rshah.org/0057c2/Akshat-vishwakarm" 
+                         alt="Live GitHub Contributions Chart for Akshat-vishwakarm" 
+                         class="w-full h-auto filter contrast-125 dark:brightness-110" 
+                         id="gh-chart-img"
+                         loading="lazy" />
+                    
+                    <div class="flex items-center justify-between text-[11px] text-on-surface-variant dark:text-slate-400 pt-3 border-t border-white/20 dark:border-white/5">
+                        <span>Real-time graph automatically synced with GitHub commits &amp; pull requests</span>
+                        <div class="flex items-center gap-1.5">
+                            <span>Less</span>
+                            <span class="w-2.5 h-2.5 rounded-sm bg-[#ebedf0] dark:bg-slate-700 inline-block"></span>
+                            <span class="w-2.5 h-2.5 rounded-sm bg-[#9be9a8] inline-block"></span>
+                            <span class="w-2.5 h-2.5 rounded-sm bg-[#40c463] inline-block"></span>
+                            <span class="w-2.5 h-2.5 rounded-sm bg-[#30a14e] inline-block"></span>
+                            <span class="w-2.5 h-2.5 rounded-sm bg-[#216e39] inline-block"></span>
+                            <span>More</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==============================================================
+         TECHNICAL EXPERTISE SECTION (SKILLS)
+         ============================================================== -->
+    <section class="max-w-[1280px] mx-auto px-gutter py-24 scroll-mt-20" id="skills">
+        <div class="text-center mb-16">
+            <span class="text-xs font-bold uppercase tracking-widest text-primary dark:text-primary-fixed-dim mb-2 block">
+                Core Stack
+            </span>
+            <h2 class="font-display text-4xl sm:text-5xl font-extrabold text-on-surface dark:text-slate-50 uppercase tracking-tight">
+                TECHNICAL EXPERTISE
+            </h2>
+            <p class="text-xs text-on-surface-variant/80 dark:text-slate-400 mt-3 font-medium">
+                Core competencies and machine learning stack
+            </p>
+        </div>
+
+        <div id="skills-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            <!-- Skill 1 -->
+            <div class="p-6 rounded-2xl glass-panel flex flex-col items-center justify-center group hover:-translate-y-2 transition-all duration-300">
+                <div class="w-12 h-12 rounded-full glass-nested flex items-center justify-center mb-4 text-primary dark:text-primary-fixed-dim">
+                    <span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+                </div>
+                <span class="font-bold text-sm tracking-wide dark:text-slate-200">Python</span>
+            </div>
+
+            <!-- Skill 2 -->
+            <div class="p-6 rounded-2xl glass-panel flex flex-col items-center justify-center group hover:-translate-y-2 transition-all duration-300">
+                <div class="w-12 h-12 rounded-full glass-nested flex items-center justify-center mb-4 text-primary dark:text-primary-fixed-dim">
+                    <span class="material-symbols-outlined" data-icon="neurology">neurology</span>
+                </div>
+                <span class="font-bold text-sm tracking-wide dark:text-slate-200">TensorFlow</span>
+            </div>
+
+            <!-- Skill 3 -->
+            <div class="p-6 rounded-2xl glass-panel flex flex-col items-center justify-center group hover:-translate-y-2 transition-all duration-300">
+                <div class="w-12 h-12 rounded-full glass-nested flex items-center justify-center mb-4 text-primary dark:text-primary-fixed-dim">
+                    <span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                </div>
+                <span class="font-bold text-sm tracking-wide dark:text-slate-200">Scikit-learn</span>
+            </div>
+
+            <!-- Skill 4 -->
+            <div class="p-6 rounded-2xl glass-panel flex flex-col items-center justify-center group hover:-translate-y-2 transition-all duration-300">
+                <div class="w-12 h-12 rounded-full glass-nested flex items-center justify-center mb-4 text-primary dark:text-primary-fixed-dim">
+                    <span class="material-symbols-outlined" data-icon="memory">memory</span>
+                </div>
+                <span class="font-bold text-sm tracking-wide dark:text-slate-200">PyTorch</span>
+            </div>
+
+            <!-- Skill 5 -->
+            <div class="p-6 rounded-2xl glass-panel flex flex-col items-center justify-center group hover:-translate-y-2 transition-all duration-300">
+                <div class="w-12 h-12 rounded-full glass-nested flex items-center justify-center mb-4 text-primary dark:text-primary-fixed-dim">
+                    <span class="material-symbols-outlined" data-icon="database">database</span>
+                </div>
+                <span class="font-bold text-sm tracking-wide dark:text-slate-200">SQL</span>
+            </div>
+
+            <!-- Skill 6 -->
+            <div class="p-6 rounded-2xl glass-panel flex flex-col items-center justify-center group hover:-translate-y-2 transition-all duration-300">
+                <div class="w-12 h-12 rounded-full glass-nested flex items-center justify-center mb-4 text-primary dark:text-primary-fixed-dim">
+                    <span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+                </div>
+                <span class="font-bold text-sm tracking-wide dark:text-slate-200">Docker</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==============================================================
+         PROJECTS SECTION
+         ============================================================== -->
+    <section class="max-w-[1280px] mx-auto px-gutter py-24 scroll-mt-20" id="projects">
+        <div class="text-center mb-16">
+            <span class="text-xs font-bold uppercase tracking-widest text-primary dark:text-primary-fixed-dim mb-2 block">
+                Selected Works
+            </span>
+            <h2 class="font-display text-4xl sm:text-5xl font-black text-on-surface dark:text-slate-50 uppercase tracking-tight">
+                PROJECTS
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-card-gap" id="projects-grid">
+            <!-- Project 1: GeneGuard -->
+            <div class="rounded-3xl glass-panel overflow-hidden group hover:-translate-y-1 transition-all duration-300">
+                <div class="h-64 relative overflow-hidden bg-primary/10 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary text-7xl opacity-25 group-hover:scale-110 transition-transform duration-500" data-icon="biotech">biotech</span>
+                    <div class="absolute top-4 right-4">
+                        <span class="px-3.5 py-1.5 glass-nested rounded-full text-primary dark:text-primary-fixed-dim font-bold text-xs">Genetics &amp; Medical RAG</span>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <h3 class="font-headline-md text-2xl font-bold text-on-surface dark:text-slate-50 mb-1">GeneGuard</h3>
+                    <p class="text-xs font-bold text-primary/80 dark:text-primary-fixed-dim/80 mb-3 uppercase tracking-wider">AI-Powered Genetic &amp; Family Health Analysis</p>
+                    <p class="text-on-surface-variant dark:text-slate-400 mb-6 line-clamp-2 italic text-sm">"Personal health &bull; Disease-specific ML &bull; Family risk &bull; Medical RAG"</p>
+                    <div class="flex flex-wrap gap-2 mb-8">
+                        <span class="px-3 py-1 rounded-full glass-nested text-[10px] font-bold text-primary dark:text-primary-fixed-dim uppercase">Disease-Specific ML</span>
+                        <span class="px-3 py-1 rounded-full glass-nested text-[10px] font-bold text-primary dark:text-primary-fixed-dim uppercase">Medical RAG</span>
+                        <span class="px-3 py-1 rounded-full glass-nested text-[10px] font-bold text-primary dark:text-primary-fixed-dim uppercase">Pinecone</span>
+                        <span class="px-3 py-1 rounded-full glass-nested text-[10px] font-bold text-primary dark:text-primary-fixed-dim uppercase">Family Risk</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <button class="flex-1 py-3 rounded-xl glass-btn text-primary dark:text-primary-fixed-dim font-bold text-sm cursor-pointer" onclick="openCaseStudy(0)">Case Study</button>
+                        <a href="https://gene-guard-2-0-frontend.vercel.app/" target="_blank" rel="noopener noreferrer" title="Live Demo" aria-label="Open GeneGuard live demo" class="w-12 h-12 flex items-center justify-center rounded-xl glass-control text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors">
+                            <span class="material-symbols-outlined text-lg" data-icon="open_in_new">open_in_new</span>
+                        </a>
+                        <a href="https://github.com/Akshat-vishwakarm/GeneGuard-2.0" target="_blank" rel="noopener noreferrer" title="GitHub Repository" aria-label="Open GeneGuard GitHub repository" class="w-12 h-12 flex items-center justify-center rounded-xl glass-control text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors">
+                            <span class="material-symbols-outlined text-lg" data-icon="code">code</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2: SupplyGuard AI -->
+            <div class="rounded-3xl glass-panel overflow-hidden group hover:-translate-y-1 transition-all duration-300">
+                <div class="h-64 relative overflow-hidden bg-secondary/10 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-secondary text-7xl opacity-25 group-hover:scale-110 transition-transform duration-500" data-icon="inventory_2">inventory_2</span>
+                    <div class="absolute top-4 right-4">
+                        <span class="px-3.5 py-1.5 glass-nested rounded-full text-secondary dark:text-secondary-fixed-dim font-bold text-xs">Enterprise AI</span>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <h3 class="font-headline-md text-2xl font-bold text-on-surface dark:text-slate-50 mb-1">SupplyGuard AI</h3>
+                    <p class="text-xs font-bold text-secondary/80 dark:text-secondary-fixed-dim/80 mb-3 uppercase tracking-wider">Intelligent Supply Chain &amp; Risk Prediction</p>
+                    <p class="text-on-surface-variant dark:text-slate-400 mb-6 line-clamp-2 italic text-sm">"Building transparent, predictive, and resilient supply chain logistics networks."</p>
+                    <div class="flex flex-wrap gap-2 mb-8">
+                        <span class="px-3 py-1 rounded-full glass-nested text-[10px] font-bold text-secondary dark:text-secondary-fixed-dim uppercase">TensorFlow</span>
+                        <span class="px-3 py-1 rounded-full glass-nested text-[10px] font-bold text-secondary dark:text-secondary-fixed-dim uppercase">PostgreSQL</span>
+                        <span class="px-3 py-1 rounded-full glass-nested text-[10px] font-bold text-secondary dark:text-secondary-fixed-dim uppercase">Power BI</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <button class="flex-1 py-3 rounded-xl glass-btn text-secondary dark:text-secondary-fixed-dim font-bold text-sm cursor-pointer" onclick="openCaseStudy(1)">Case Study</button>
+                        <a href="https://supply-guard-2-0.vercel.app/" target="_blank" rel="noopener noreferrer" title="Live Demo" aria-label="Open SupplyGuard AI live demo" class="w-12 h-12 flex items-center justify-center rounded-xl glass-control text-on-surface-variant dark:text-slate-400 hover:text-secondary dark:hover:text-secondary-fixed-dim transition-colors">
+                            <span class="material-symbols-outlined text-lg" data-icon="open_in_new">open_in_new</span>
+                        </a>
+                        <a href="https://github.com/Akshat-vishwakarm/supply_guard_2.0" target="_blank" rel="noopener noreferrer" title="GitHub Repository" aria-label="Open SupplyGuard AI GitHub repository" class="w-12 h-12 flex items-center justify-center rounded-xl glass-control text-on-surface-variant dark:text-slate-400 hover:text-secondary dark:hover:text-secondary-fixed-dim transition-colors">
+                            <span class="material-symbols-outlined text-lg" data-icon="code">code</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3: FitTrack AI -->
+            <div class="rounded-3xl glass-panel overflow-hidden group hover:-translate-y-1 transition-all duration-300">
+                <div class="h-64 relative overflow-hidden bg-tertiary/10 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-tertiary text-7xl opacity-25 group-hover:scale-110 transition-transform duration-500" data-icon="fitness_center">fitness_center</span>
+                    <div class="absolute top-4 right-4">
+                        <span class="px-3.5 py-1.5 glass-nested rounded-full text-tertiary dark:text-tertiary-fixed-dim font-bold text-xs">Vibe-Coded Fitness OS</span>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <h3 class="font-headline-md text-2xl font-bold text-on-surface dark:text-slate-50 mb-1">FitTrack AI</h3>
+                    <p class="text-xs font-bold text-tertiary/80 dark:text-tertiary-fixed-dim/80 mb-3 uppercase tracking-wider">Your Personal Fitness OS &bull; Habits, Workouts &amp; Nutrition</p>
+                    <p class="text-on-surface-variant dark:text-slate-400 mb-6 line-clamp-2 italic text-sm">"Intelligently track habits, workouts, nutrition, and body progress with AI-powered insights."</p>
+                    <div class="flex flex-wrap gap-2 mb-8">
+                        <span class="px-3 py-1 rounded-full glass-nested text-[10px] font-bold text-tertiary dark:text-tertiary-fixed-dim uppercase">Vibe Coding</span>
+                        <span class="px-3 py-1 rounded-full glass-nested text-[10px] font-bold text-tertiary dark:text-tertiary-fixed-dim uppercase">Workout Splits</span>
+                        <span class="px-3 py-1 rounded-full glass-nested text-[10px] font-bold text-tertiary dark:text-tertiary-fixed-dim uppercase">Habit Tracker</span>
+                        <span class="px-3 py-1 rounded-full glass-nested text-[10px] font-bold text-tertiary dark:text-tertiary-fixed-dim uppercase">Progressive Overload</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <button class="flex-1 py-3 rounded-xl glass-btn text-tertiary dark:text-tertiary-fixed-dim font-bold text-sm cursor-pointer" onclick="openCaseStudy(2)">Case Study</button>
+                        <a href="https://fit-track-ai-lilac.vercel.app/" target="_blank" rel="noopener noreferrer" title="Live Demo" aria-label="Open FitTrack AI live demo" class="w-12 h-12 flex items-center justify-center rounded-xl glass-control text-on-surface-variant dark:text-slate-400 hover:text-tertiary dark:hover:text-tertiary-fixed-dim transition-colors">
+                            <span class="material-symbols-outlined text-lg" data-icon="open_in_new">open_in_new</span>
+                        </a>
+                        <a href="https://github.com/Akshat-vishwakarm/fit_track_ai" target="_blank" rel="noopener noreferrer" title="GitHub Repository" aria-label="Open FitTrack AI GitHub repository" class="w-12 h-12 flex items-center justify-center rounded-xl glass-control text-on-surface-variant dark:text-slate-400 hover:text-tertiary dark:hover:text-tertiary-fixed-dim transition-colors">
+                            <span class="material-symbols-outlined text-lg" data-icon="code">code</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4: REACT -->
+            <div class="rounded-3xl glass-panel overflow-hidden group hover:-translate-y-1 transition-all duration-300">
+                <div class="h-64 relative overflow-hidden bg-primary/10 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary text-7xl opacity-25 group-hover:scale-110 transition-transform duration-500" data-icon="emergency">emergency</span>
+                    <div class="absolute top-4 right-4">
+                        <span class="px-3.5 py-1.5 glass-nested rounded-full text-primary dark:text-primary-fixed-dim font-bold text-xs">Safety &amp; AI</span>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <h3 class="font-headline-md text-2xl font-bold text-on-surface dark:text-slate-50 mb-1">REACT</h3>
+                    <p class="text-xs font-bold text-primary/80 dark:text-primary-fixed-dim/80 mb-3 uppercase tracking-wider">Emergency Alert &amp; Coordinated Tracking</p>
+                    <p class="text-on-surface-variant dark:text-slate-400 mb-6 line-clamp-2 italic text-sm">"Making massive public gatherings safer through AI crowd analytics and real-time coordination."</p>
+                    <div class="flex flex-wrap gap-2 mb-8">
+                        <span class="px-3 py-1 rounded-full glass-nested text-[10px] font-bold text-primary dark:text-primary-fixed-dim uppercase">React</span>
+                        <span class="px-3 py-1 rounded-full glass-nested text-[10px] font-bold text-primary dark:text-primary-fixed-dim uppercase">Node.js</span>
+                        <span class="px-3 py-1 rounded-full glass-nested text-[10px] font-bold text-primary dark:text-primary-fixed-dim uppercase">Firebase</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <button class="flex-1 py-3 rounded-xl glass-btn text-primary dark:text-primary-fixed-dim font-bold text-sm cursor-pointer" onclick="openCaseStudy(3)">Case Study</button>
+                        <a href="https://github.com/Akshat-vishwakarm" target="_blank" rel="noopener noreferrer" title="GitHub Profile / Repository" aria-label="Open REACT GitHub repository" class="w-12 h-12 flex items-center justify-center rounded-xl glass-control text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors">
+                            <span class="material-symbols-outlined text-lg" data-icon="code">code</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==============================================================
+         HACKATHONS & ACHIEVEMENTS SECTION
+         ============================================================== -->
+    <section class="max-w-[1280px] mx-auto px-gutter py-24 scroll-mt-20" id="hackathons">
+        <div class="text-center mb-16">
+            <span class="text-xs font-bold uppercase tracking-widest text-primary dark:text-primary-fixed-dim mb-2 block">
+                Competitive Honors
+            </span>
+            <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-black text-on-surface dark:text-slate-50 uppercase tracking-tight">
+                HACKATHONS &amp; ACHIEVEMENTS
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-card-gap">
+            <!-- Hackathon Card 1 -->
+            <div class="p-8 rounded-3xl glass-panel hover:-translate-y-1 transition-all duration-300">
+                <div class="flex items-center justify-between mb-6">
+                    <span class="material-symbols-outlined text-primary text-4xl" data-icon="emoji_events">emoji_events</span>
+                    <span class="px-3 py-1 rounded-full glass-nested text-primary dark:text-primary-fixed-dim font-bold text-xs uppercase tracking-wider">Winner</span>
+                </div>
+                <h4 class="font-headline-md text-xl font-bold text-on-surface dark:text-slate-50 mb-2">Smart India Hackathon</h4>
+                <p class="text-xs font-bold text-primary/80 dark:text-primary-fixed-dim/80 uppercase tracking-wider mb-3">AI &bull; Real-time Geo Tracking</p>
+                <p class="text-on-surface-variant dark:text-slate-400 text-sm leading-relaxed">
+                    Spearheaded rapid development of an emergency crowd safety orchestration platform handling multi-source sensor streams under strict 36-hour sprint constraints.
+                </p>
+            </div>
+
+            <!-- Hackathon Card 2 -->
+            <div class="p-8 rounded-3xl glass-panel hover:-translate-y-1 transition-all duration-300">
+                <div class="flex items-center justify-between mb-6">
+                    <span class="material-symbols-outlined text-secondary text-4xl" data-icon="workspace_premium">workspace_premium</span>
+                    <span class="px-3 py-1 rounded-full glass-nested text-secondary dark:text-secondary-fixed-dim font-bold text-xs uppercase tracking-wider">Finalist</span>
+                </div>
+                <h4 class="font-headline-md text-xl font-bold text-on-surface dark:text-slate-50 mb-2">National AI Innovation Cup</h4>
+                <p class="text-xs font-bold text-secondary/80 dark:text-secondary-fixed-dim/80 uppercase tracking-wider mb-3">Predictive Vision Systems</p>
+                <p class="text-on-surface-variant dark:text-slate-400 text-sm leading-relaxed">
+                    Engineered edge computer vision pipeline for automated retail analytics, demonstrating sub-50ms inference latency on resource-constrained embedded hardware.
+                </p>
+            </div>
+
+            <!-- Hackathon Card 3 -->
+            <div class="p-8 rounded-3xl glass-panel hover:-translate-y-1 transition-all duration-300">
+                <div class="flex items-center justify-between mb-6">
+                    <span class="material-symbols-outlined text-tertiary text-4xl" data-icon="military_tech">military_tech</span>
+                    <span class="px-3 py-1 rounded-full glass-nested text-tertiary dark:text-tertiary-fixed-dim font-bold text-xs uppercase tracking-wider">Top 35</span>
+                </div>
+                <h4 class="font-headline-md text-xl font-bold text-on-surface dark:text-slate-50 mb-2">SunHacK International 2025</h4>
+                <p class="text-xs font-bold text-tertiary/80 dark:text-tertiary-fixed-dim/80 uppercase tracking-wider mb-3">8+ Hackathons &bull; Global Recognition</p>
+                <p class="text-on-surface-variant dark:text-slate-400 text-sm leading-relaxed">
+                    Participated in 7+ national hackathons and an international hackathon, earning a Top 35 finish at SunHacK International 2025 with high-velocity prototyping and AI engineering.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==============================================================
+         CONTACT SECTION
+         ============================================================== -->
+    <section class="max-w-[1280px] mx-auto px-gutter py-24 scroll-mt-20" id="contact">
+        <div class="max-w-2xl mx-auto p-8 sm:p-12 rounded-[36px] glass-panel">
+            <div class="text-center mb-10">
+                <div class="w-20 h-20 mx-auto rounded-full glass-nested flex items-center justify-center text-primary dark:text-primary-fixed-dim mb-6">
+                    <span class="material-symbols-outlined text-4xl transition-all duration-500" data-icon="send" id="plane-icon">send</span>
+                </div>
+                <h2 class="font-display text-3xl sm:text-4xl font-black text-on-surface dark:text-slate-50 uppercase tracking-tight">
+                    LET'S CONNECT
+                </h2>
+                <p class="text-on-surface-variant dark:text-slate-400 text-sm mt-3">
+                    Have a machine learning project, opportunity, or research collaboration in mind?
+                </p>
+            </div>
+            <form class="space-y-6" onsubmit="event.preventDefault(); animateSend();">
+                <div class="space-y-2">
+                    <label class="text-xs font-bold text-on-surface-variant dark:text-slate-400 ml-3 uppercase tracking-wider">Your Name</label>
+                    <input class="w-full px-6 py-4 rounded-2xl glass-input text-on-surface dark:text-slate-100 placeholder:text-outline dark:placeholder:text-slate-500 text-sm outline-none" placeholder="Akshat" type="text" required/>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-xs font-bold text-on-surface-variant dark:text-slate-400 ml-3 uppercase tracking-wider">Email Address</label>
+                    <input class="w-full px-6 py-4 rounded-2xl glass-input text-on-surface dark:text-slate-100 placeholder:text-outline dark:placeholder:text-slate-500 text-sm outline-none" placeholder="akshat@example.com" type="email" required/>
+                </div>
+                <div class="space-y-2">
+                    <label class="text-xs font-bold text-on-surface-variant dark:text-slate-400 ml-3 uppercase tracking-wider">Message</label>
+                    <textarea class="w-full px-6 py-4 rounded-2xl glass-input text-on-surface dark:text-slate-100 placeholder:text-outline dark:placeholder:text-slate-500 text-sm outline-none" placeholder="Tell me about your idea or project..." rows="4" required></textarea>
+                </div>
+                <button class="w-full py-4.5 rounded-2xl hero-btn-primary font-bold text-base hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 mt-8 shadow-lg cursor-pointer">
+                    Send Message
+                </button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<!-- Case Study Modal -->
+<div class="fixed inset-0 z-[60] hidden bg-black/55 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 md:p-8" id="case-study-modal">
+    <div class="relative w-full max-w-5xl max-h-[92vh] sm:max-h-[90vh] glass-modal rounded-2xl sm:rounded-[30px] overflow-y-auto overflow-x-hidden" id="case-study-content">
+        <button aria-label="Close modal" class="absolute top-3.5 right-3.5 sm:top-6 sm:right-6 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full glass-control flex items-center justify-center text-primary dark:text-primary-fixed-dim cursor-pointer" onclick="closeCaseStudy()">
+            <span class="material-symbols-outlined text-xl">close</span>
+        </button>
+        <div id="modal-body-content">
+            <!-- Content Injected via JS -->
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="w-full py-14 flex flex-col items-center gap-6 px-gutter border-t border-white/20 dark:border-white/5 glass-footer transition-colors duration-300">
+    <div class="font-display text-2xl text-primary dark:text-primary-fixed-dim font-black tracking-tighter">AKSHAT</div>
+    <p class="font-body-md text-sm text-on-surface-variant dark:text-slate-400 text-center max-w-md">
+        &copy; 2024 Akshat Vishwakarma. Built with AI &amp; ML Precision.
+    </p>
+    <div class="flex gap-6 text-sm font-semibold">
+        <a class="text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="https://www.linkedin.com/in/akshat-pankaj-vishwakarma-8a4246327" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="https://github.com/Akshat-vishwakarm" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="text-on-surface-variant dark:text-slate-400 hover:text-primary dark:hover:text-primary-fixed-dim transition-colors" href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
+    </div>
+    <button class="mt-2 text-primary dark:text-primary-fixed-dim font-bold text-sm flex items-center gap-1.5 hover:scale-105 transition-transform cursor-pointer px-4 py-2 rounded-full glass-control" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        Back to Top <span class="material-symbols-outlined text-lg" data-icon="expand_less">expand_less</span>
+    </button>
+</footer>
+
+<!-- Project Data & Case Studies Logic -->
+<script>
+    const projectData = [
+        {
+            title: "GeneGuard",
+            subtitle: "AI-Powered Genetic & Family Health Analysis",
+            tagline: "Personal health • Disease-specific ML • Family risk • Medical RAG",
+            demoUrl: "https://gene-guard-2-0-frontend.vercel.app/",
+            githubUrl: "https://github.com/Akshat-vishwakarm/GeneGuard-2.0",
+            overview: "GeneGuard brings disease-specific machine learning, family-health context, medical report extraction, and medical knowledge retrieval into one unified platform. Designed as an AI/ML healthcare research environment, GeneGuard analyzes personal health biomarkers alongside multi-generational family medical history. Instead of relying on one universal model, GeneGuard deploys individual disease-specific models, allowing each model to work strictly with the features and preprocessing appropriate to its own prediction task.",
+            problem: "Generic monolithic AI health platforms fail across specialized diagnostic domains, ignore critical multi-generational hereditary risk factors, and frequently hallucinate medical answers without grounded clinical literature verification.",
+            solution: "A multi-layered healthcare AI architecture built around 5 dedicated disease-specific ML pipelines, an interactive Family Health Network with a validated Family Risk Engine, OCR document extraction for laboratory reports, and a Pinecone-indexed Medical RAG chatbot powered by the Gale Encyclopedia of Medicine.",
+            metrics: [
+                { label: "Accuracy", value: "73.90%" },
+                { label: "Precision", value: "77.44%" },
+                { label: "Recall", value: "66.51%" },
+                { label: "F1 Score", value: "71.56%" },
+                { label: "ROC-AUC", value: "80.22%" }
+            ],
+            metricNote: "Recorded evaluation for the tuned Cardiovascular Random Forest pipeline (n_estimators=200, max_depth=10, min_samples_leaf=2). Prototype research benchmarks; not a clinical validation.",
+            specializedModules: [
+                { icon: "favorite", title: "Cardiovascular Model", desc: "Tuned tabular Random Forest pipeline evaluating age, sex, chest pain (cp), resting BP (trestbps), cholesterol, fasting blood sugar, ECG, max HR (thalch), and thal." },
+                { icon: "water_drop", title: "Metabolic Disease Model", desc: "Dedicated metabolic pipeline maintaining its own feature schema for glucose, HbA1c, total cholesterol, LDL, HDL, triglycerides, fasting insulin, HOMA-IR, and BMI." },
+                { icon: "vital_signs", title: "Hypertension Model", desc: "Dedicated blood-pressure analysis handling systolic/diastolic BP, age, sex, BMI, and resting HR—intentionally segregated from the cardiovascular prediction task." },
+                { icon: "science", title: "Thyroid Disease Model", desc: "Independent multi-class thyroid classifier evaluating TSH, T3, T4, T4U, FTI, thyroxine/antithyroid medication, goitre, and surgical indicators." },
+                { icon: "dna", title: "Hereditary Cancer Model", desc: "Familial risk module designed to support hereditary cancer categories (BRCA1/BRCA2, Lynch syndrome) using genetic indicators, exposures, and chronic symptom profiles." }
+            ],
+            features: [
+                "5 Disease-Specific Machine Learning Pipelines",
+                "Interactive Family Health Network & Lineage Graph",
+                "Validated Family Risk Engine (Unknown != 0 Integrity)",
+                "Medical Report Intelligence & OCR Lab Extraction",
+                "Medical RAG Chatbot (Gale Encyclopedia of Medicine)",
+                "Pinecone Vector Database with 384D all-MiniLM-L6-v2 Embeddings",
+                "Multi-Tier AI Architecture (Offline Local ML + Cloud Gemini)",
+                "Locally Executable Offline Trained Model Artifacts"
+            ],
+            customSections: [
+                {
+                    title: "Family Health Network & Validated Risk Engine",
+                    icon: "family_restroom",
+                    desc: "GeneGuard allows users to build an interactive multi-generational family health tree (grandparents, parents, siblings) with age, diagnosis, and symptoms. Crucially, unknown medical data is preserved as null/unknown rather than being coerced to 0. The Family Risk Engine cleanly separates personal model probabilities P(personal) from validated family evidence P(family-aware), completely eliminating arbitrary percentage-point inflation."
+                },
+                {
+                    title: "Medical Report Intelligence (OCR)",
+                    icon: "document_scanner",
+                    desc: "Medical reports uploaded as PDF, JPG, or PNG pass through an automated OCR document pipeline: Document Extraction → Test Identification → Value & Unit Extraction → Normalization → User Verification. Once confirmed, structured biomarkers are strictly routed to the relevant models matching their trained feature schemas."
+                },
+                {
+                    title: "Medical RAG Pipeline (Gale Encyclopedia)",
+                    icon: "library_books",
+                    desc: "The Gale Encyclopedia of Medicine is parsed into recursive chunks, converted into 384-dimensional dense vectors with Hugging Face all-MiniLM-L6-v2, and indexed in Pinecone. User clinical queries perform cosine similarity semantic searches to retrieve literature context before generating context-grounded responses via LangChain and OpenAI."
+                },
+                {
+                    title: "Offline Local ML & Multi-Tier AI Layers",
+                    icon: "offline_bolt",
+                    desc: "Trained model artifacts are stored directly inside the project repository, allowing core ML inference to run completely locally without network connectivity. Cloud services are segregated to interpretive tasks: Gemini provides clinical translation of ML outputs, while Pinecone and OpenAI power external literature retrieval."
+                },
+                {
+                    title: "Responsible AI Implementation Principles",
+                    icon: "verified_user",
+                    desc: "Disease models remain strictly separate; models only receive features from their trained schemas; unknown family history is never treated as zero; ML probabilities are never manually altered; and Gemini acts purely as an interpretation layer rather than a numerical engine."
+                }
+            ],
+            architecture: "Modular full-stack architecture featuring a React/Vite UI, Flask API services, locally deployed Scikit-learn/Random Forest model artifacts for zero-latency offline inference, Pinecone vector database with LangChain orchestration, and a decoupled Gemini clinical explanation layer.",
+            challenges: "Harmonizing heterogenous biomarker schemas across 5 diagnostic domains, preventing arbitrary risk inflation in multi-generational family trees, and building high-precision OCR extraction for non-standardized clinical lab reports.",
+            future: "End-to-end VCF genomic variant pipeline integration (AlphaFold 3D protein embedding alignment), local edge WebAssembly model deployment, and clinical validation studies.",
+            tech: ["Python", "Scikit-learn", "Random Forest", "LightGBM", "TensorFlow", "LangChain", "Pinecone", "all-MiniLM-L6-v2", "OpenAI", "Gemini", "React", "Flask"],
+            disclaimer: "GeneGuard is a healthcare research and educational platform. Model predictions, family risk metrics, OCR data extractions, and RAG chatbot answers are strictly exploratory and not a substitute for professional clinical diagnosis or medical decision-making."
+        },
+        {
+            title: "SupplyGuard AI",
+            subtitle: "Intelligent Supply Chain & Disruption Forecasting",
+            tagline: "Building transparent, predictive, and resilient supply chain logistics networks.",
+            demoUrl: "https://supply-guard-2-0.vercel.app/",
+            githubUrl: "https://github.com/Akshat-vishwakarm/supply_guard_2.0",
+            overview: "SupplyGuard AI is an enterprise deep learning platform that forecasts international logistics bottlenecks, detects discrepancies in inventory data, and automates multi-echelon risk mitigation.",
+            problem: "Modern global supply networks suffer from compounding delays, geopolitical vulnerabilities, and fragmented tracking data that lead to costly downtime and inflated overhead.",
+            solution: "An intelligent time-series forecasting and anomaly detection architecture that continuously analyzes freight manifests, weather anomalies, and port telemetry to autonomously re-route shipments.",
+            tech: ["Python", "TensorFlow", "PostgreSQL", "Power BI", "React", "Flask"],
+            features: [
+                "Predictive Disruption Forecasting",
+                "AI Dynamic Route & Freight Optimization",
+                "Multi-Echelon Inventory Risk Scoring",
+                "Real-time Telemetry & Anomaly Alerts"
+            ],
+            architecture: "PostgreSQL transactional data store with TensorFlow LSTM/Temporal Fusion Transformers for delay prediction, rendered via Power BI and React dashboards.",
+            challenges: "Harmonizing fragmented and asynchronous data streams from global carrier APIs.",
+            future: "Multi-agent reinforcement learning for autonomous freight contract allocation."
+        },
+        {
+            title: "FitTrack AI",
+            subtitle: "Your Personal Fitness OS — Habits, Workouts & Nutrition",
+            tagline: "Your Personal Fitness OS — intelligently track habits, workouts, nutrition, and body progress with AI-powered insights.",
+            demoUrl: "https://fit-track-ai-lilac.vercel.app/",
+            githubUrl: "https://github.com/Akshat-vishwakarm/fit_track_ai",
+            overview: "FitTrack AI is a centralized personal fitness tracking operating system that unifies daily habits, weekly workout splits, progressive overload analytics, nutrition tracking, and body transformation metrics into one seamless dashboard. Developed using an end-to-end 'Vibe Coding' methodology, the application showcases how modern AI-assisted workflows can design, scaffold, engineer, test, and deploy a complete production-ready self-improvement product.",
+            problem: "Fitness enthusiasts are forced to juggle 4–5 fragmented mobile apps for habit tracking, gym workout logging, macronutrient counting, and body transformation photos, creating friction, abandoned routines, and disconnected health data.",
+            solution: "A single unified personal fitness dashboard featuring interactive daily habit tracking with streaks, customized 7-day workout splits with historical progressive overload tracking, comprehensive nutrition logging, and an architecture primed for edge computer vision and ML predictive modeling.",
+            specializedModules: [
+                { icon: "dashboard", title: "Centralized Dashboard", desc: "Single-pane overview of daily activity, habit progress, workout splits, nutrition macros, goal streaks, and body transformation milestones." },
+                { icon: "checklist", title: "Daily Habit Tracker", desc: "Build consistent routines (hydration, workouts, sleep, reading, meditation) with checkbox completion, streak preservation, and weekly completion trends." },
+                { icon: "fitness_center", title: "7-Day Workout Split", desc: "Custom Monday–Sunday training splits tracking exercises, sets, reps, weight, and volume with immediate access to previous workout performance." },
+                { icon: "trending_up", title: "Progressive Overload Engine", desc: "Displays previous session performance directly alongside active sets (e.g. Bench Press: 60 kg × 10 reps → 62.5 kg × 10 reps) to ensure continuous strength gains." }
+            ],
+            features: [
+                "Centralized Fitness OS Dashboard & Real-Time Analytics",
+                "Custom Daily Habit Tracker with Streaks & Trends",
+                "7-Day Weekly Training Split with Workout Logging",
+                "Manual Progressive Overload Tracking with Previous Session History",
+                "Comprehensive Daily Nutrition & Calorie Tracking",
+                "Body Composition & Weight Progress Logging",
+                "Built with End-to-End Vibe Coding Methodology",
+                "Responsive Neumorphic Interface with Local State Persistence"
+            ],
+            customSections: [
+                {
+                    title: "🧑💻 Built with Vibe Coding",
+                    icon: "smart_toy",
+                    desc: "FitTrack AI is a fully vibe-coded project where AI tools were used as development partners across architecture planning, code generation, UI/UX design, debugging, and deployment. Following the cycle: Idea → Prompt → Build → Test → Debug → Improve → Deploy, the project demonstrates how an ambitious solo developer can build and ship a complete, polished software product."
+                },
+                {
+                    title: "🏋️ Progressive Overload & Workout Splits",
+                    icon: "history",
+                    desc: "The workout engine enables customizable training splits across Monday through Sunday. Users track training days, exercises, sets, repetitions, and weight volume. To remove gym friction, previous session metrics are instantly available so athletes can methodically push progressive overload on every exercise."
+                },
+                {
+                    title: "🔥 Daily Habit Architecture",
+                    icon: "local_fire_department",
+                    desc: "Supports custom daily habits (4L+ water, gym session, cold shower, 7+ hours sleep, reading, meditation, skill practice) with daily checkboxes, streak multipliers, weekly progress summaries, and habit completion analytics."
+                }
+            ],
+            architecture: "Modern React single-page application built on Vite with modular functional components, responsive Tailwind CSS styling, persistent client-side data synchronization, and Flask API integration for analytics.",
+            challenges: "Creating a fluid, distraction-free mobile UI that allows lightning-fast logging between strenuous gym sets while maintaining historical progressive overload comparisons.",
+            future: "On-device MediaPipe computer vision for automated camera-based repetition counting and form analysis, AI meal photo macronutrient estimation, and wearable sensor telemetry.",
+            tech: ["React", "Vite", "JavaScript", "Python", "Flask", "Tailwind CSS", "Vibe Coding", "AI Workflows", "Data Visualization"]
+        },
+        {
+            title: "REACT",
+            subtitle: "Real-time Emergency Alert & Coordinated Tracking",
+            tagline: "Making massive public gatherings safer through AI crowd analytics and real-time coordination.",
+            demoUrl: "https://github.com/Akshat-vishwakarm",
+            githubUrl: "https://github.com/Akshat-vishwakarm",
+            overview: "REACT is a mission-critical platform designed for large-scale event management and emergency response. It integrates AI-driven crowd density analysis with seamless QR-based coordination to ensure safety at festivals, protests, and sporting events.",
+            problem: "Large gatherings often suffer from communication breakdowns during emergencies. Traditional static signage and delayed emergency broadcasts are insufficient for real-time crowd management.",
+            solution: "A dynamic ecosystem where attendees use QR codes for real-time location check-ins and emergency alerts, while organizers use an AI dashboard to predict crowd density and deploy first responders instantly via Socket.IO.",
+            tech: ["React", "Node.js", "Express", "MongoDB", "Firebase", "Google Maps API", "Socket.IO"],
+            features: [
+                "Real-time Crowd Heatmaps & Bottleneck Prediction",
+                "Instant QR-based SOS Emergency Triggering",
+                "Spatial Dispatch for First Responders",
+                "Low-Latency Mesh Coordination via WebSockets"
+            ],
+            architecture: "MERN Stack base with Firebase for real-time notifications, Google Maps API for spatial visualization, and Socket.IO for sub-100ms responder dispatch.",
+            challenges: "Maintaining low-latency communication during high-density network congestion.",
+            future: "Integration with drone-based surveillance for automated bottleneck detection."
+        }
+    ];
+
+    function openCaseStudy(index) {
+        const project = projectData[index];
+        const modal = document.getElementById('case-study-modal');
+        const content = document.getElementById('modal-body-content');
+
+        // Optional Metrics Grid
+        const metricsHtml = (project.metrics && project.metrics.length) ? `
+            <section>
+                <h4 class="font-headline-md text-on-surface dark:text-slate-50 mb-4 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">analytics</span> Model Performance &amp; Evaluation
+                </h4>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-3">
+                    ${project.metrics.map(m => `
+                        <div class="p-4 rounded-2xl glass-nested text-center">
+                            <div class="text-xl sm:text-2xl font-black text-primary dark:text-primary-fixed-dim">${m.value}</div>
+                            <div class="text-[10px] sm:text-xs font-bold text-on-surface-variant dark:text-slate-400 uppercase tracking-wider mt-1">${m.label}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                ${project.metricNote ? `<p class="text-xs text-on-surface-variant dark:text-slate-400 italic">${project.metricNote}</p>` : ''}
+            </section>
+        ` : '';
+
+        // Optional Specialized Modules Grid
+        const modulesHtml = (project.specializedModules && project.specializedModules.length) ? `
+            <section>
+                <h4 class="font-headline-md text-on-surface dark:text-slate-50 mb-4 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">view_quilt</span> Specialized Pipelines &amp; Core Modules
+                </h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    ${project.specializedModules.map(mod => `
+                        <div class="p-5 rounded-2xl glass-panel">
+                            <div class="flex items-center gap-2.5 mb-2">
+                                <span class="material-symbols-outlined text-primary text-xl">${mod.icon}</span>
+                                <h5 class="font-bold text-on-surface dark:text-slate-100 text-sm">${mod.title}</h5>
+                            </div>
+                            <p class="text-xs text-on-surface-variant dark:text-slate-400 leading-relaxed">${mod.desc}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            </section>
+        ` : '';
+
+        // Optional Custom Detail Sections
+        const customSectionsHtml = (project.customSections && project.customSections.length) ? `
+            ${project.customSections.map(sec => `
+                <section>
+                    <h4 class="font-headline-md text-on-surface dark:text-slate-50 mb-3 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">${sec.icon}</span> ${sec.title}
+                    </h4>
+                    <div class="p-6 rounded-2xl glass-nested">
+                        <p class="text-sm text-on-surface-variant dark:text-slate-300 leading-relaxed">${sec.desc}</p>
+                    </div>
+                </section>
+            `).join('')}
+        ` : '';
+
+        // Optional Disclaimer Banner
+        const disclaimerHtml = project.disclaimer ? `
+            <div class="p-4 rounded-xl glass-nested border border-amber-500/30 text-amber-700 dark:text-amber-300 text-xs flex items-start gap-2.5 mt-6">
+                <span class="material-symbols-outlined text-base shrink-0 mt-0.5">warning</span>
+                <span><strong>Disclaimer:</strong> ${project.disclaimer}</span>
+            </div>
+        ` : '';
+        
+        content.innerHTML = `
+            <div class="p-5 sm:p-8 md:p-12">
+                <div class="mb-8 sm:mb-12 pr-10 sm:pr-14">
+                    <div class="flex items-center gap-3 mb-3 sm:mb-4">
+                        <span class="px-3.5 sm:px-4 py-1.5 rounded-full glass-nested text-primary dark:text-primary-fixed-dim font-bold text-[11px] sm:text-xs uppercase tracking-widest">Case Study</span>
+                    </div>
+                    <h2 class="font-display text-2xl sm:text-4xl md:text-5xl text-on-surface dark:text-slate-50 mb-2 font-black leading-tight">${project.title}</h2>
+                    <p class="text-base sm:text-xl text-primary dark:text-primary-fixed-dim font-semibold mb-4 sm:mb-6">${project.subtitle}</p>
+                    <div class="p-4 sm:p-6 rounded-2xl glass-nested italic text-on-surface-variant dark:text-slate-400 text-sm sm:text-base">
+                        "${project.tagline}"
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+                    <div class="lg:col-span-2 space-y-8 sm:space-y-12">
+                        <section>
+                            <h4 class="font-headline-md text-lg sm:text-xl text-on-surface dark:text-slate-50 mb-3 sm:mb-4 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary">info</span> Overview
+                            </h4>
+                            <p class="text-sm sm:text-base text-on-surface-variant dark:text-slate-400 leading-relaxed">${project.overview}</p>
+                        </section>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
+                            <div class="p-5 sm:p-6 rounded-2xl glass-nested">
+                                <h5 class="font-bold text-error mb-2 uppercase text-xs tracking-widest">The Problem</h5>
+                                <p class="text-xs sm:text-sm text-on-surface-variant dark:text-slate-400 leading-relaxed">${project.problem}</p>
+                            </div>
+                            <div class="p-5 sm:p-6 rounded-2xl glass-nested">
+                                <h5 class="font-bold text-primary dark:text-primary-fixed-dim mb-2 uppercase text-xs tracking-widest">The Solution</h5>
+                                <p class="text-xs sm:text-sm text-on-surface-variant dark:text-slate-400 leading-relaxed">${project.solution}</p>
+                            </div>
+                        </div>
+
+                        ${metricsHtml}
+
+                        ${modulesHtml}
+
+                        <section>
+                            <h4 class="font-headline-md text-lg sm:text-xl text-on-surface dark:text-slate-50 mb-3 sm:mb-4 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary">task_alt</span> Key Features &amp; Capabilities
+                            </h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                                ${project.features.map(f => `
+                                    <div class="flex items-center gap-3 p-3.5 sm:p-4 rounded-xl glass-nested">
+                                        <span class="material-symbols-outlined text-primary text-sm shrink-0">check_circle</span>
+                                        <span class="text-xs sm:text-sm font-medium dark:text-slate-300">${f}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </section>
+
+                        ${customSectionsHtml}
+
+                        <section>
+                            <h4 class="font-headline-md text-lg sm:text-xl text-on-surface dark:text-slate-50 mb-3 sm:mb-4 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary">hub</span> Architecture &amp; Future Scope
+                            </h4>
+                            <div class="space-y-4 sm:space-y-6">
+                                <div class="p-5 sm:p-6 rounded-2xl glass-nested">
+                                    <h5 class="font-bold text-on-surface dark:text-slate-100 text-xs sm:text-sm mb-2">Technical Architecture</h5>
+                                    <p class="text-xs sm:text-sm text-on-surface-variant dark:text-slate-400 leading-relaxed">${project.architecture}</p>
+                                </div>
+                                <div class="p-5 sm:p-6 rounded-2xl glass-nested">
+                                    <h5 class="font-bold text-on-surface dark:text-slate-100 text-xs sm:text-sm mb-2">Challenges Overcome</h5>
+                                    <p class="text-xs sm:text-sm text-on-surface-variant dark:text-slate-400 leading-relaxed">${project.challenges}</p>
+                                </div>
+                                <div class="p-5 sm:p-6 rounded-2xl glass-nested border-l-4 border-primary">
+                                    <h5 class="font-bold text-primary dark:text-primary-fixed-dim text-xs sm:text-sm mb-2 uppercase tracking-widest">Roadmap</h5>
+                                    <p class="text-xs sm:text-sm text-on-surface-variant dark:text-slate-400 leading-relaxed">${project.future}</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        ${disclaimerHtml}
+                    </div>
+
+                    <div class="space-y-6 sm:space-y-8">
+                        <div class="p-6 sm:p-8 rounded-3xl glass-panel lg:sticky lg:top-8">
+                            <h4 class="font-bold text-on-surface dark:text-slate-50 mb-6 uppercase text-xs tracking-widest">Technologies</h4>
+                            <div class="flex flex-wrap gap-2 mb-10">
+                                ${project.tech.map(t => `
+                                    <span class="px-4 py-2 rounded-xl glass-nested text-xs font-bold text-primary dark:text-primary-fixed-dim">${t}</span>
+                                `).join('')}
+                            </div>
+
+                            <div class="space-y-4">
+                                <a href="${project.demoUrl}" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 rounded-2xl hero-btn-primary font-bold text-center block text-sm">
+                                    Live Demo
+                                </a>
+                                <a href="${project.githubUrl}" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 glass-btn text-primary dark:text-primary-fixed-dim rounded-2xl font-bold text-center block text-sm">
+                                    View Repository
+                                </a>
+                            </div>
+
+                            <div class="mt-10 pt-6 border-t border-white/20 dark:border-white/5">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full glass-nested flex items-center justify-center font-black text-primary dark:text-primary-fixed-dim text-sm tracking-tight border border-primary/20">AV</div>
+                                    <div>
+                                        <p class="text-xs font-bold dark:text-slate-200">Developed By</p>
+                                        <p class="text-sm font-semibold text-on-surface-variant dark:text-slate-400">Akshat Vishwakarma</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeCaseStudy() {
+        const modal = document.getElementById('case-study-modal');
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+
+    function toggleDarkMode() {
+        const isDark = document.documentElement.classList.toggle('dark');
+        if (isDark) {
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.add('light');
+        }
+        const icon = document.querySelector('[data-icon="dark_mode"]');
+        if (icon) {
+            icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+        }
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+
+    function animateSend() {
+        const icon = document.getElementById('plane-icon');
+        icon.style.transform = 'translate(90px, -90px) scale(0.4)';
+        icon.style.opacity = '0';
+        setTimeout(() => {
+            icon.style.transition = 'none';
+            icon.style.transform = 'translate(-90px, 90px) scale(0.4)';
+            setTimeout(() => {
+                icon.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+                icon.style.transform = 'translate(0, 0) scale(1)';
+                icon.style.opacity = '1';
+                alert('Thank you! Your message has been sent to Akshat.');
+            }, 50);
+        }, 500);
+    }
+
+    // Mobile Drawer Toggle & Close Handlers
+    function toggleMobileMenu() {
+        const drawer = document.getElementById('mobile-drawer');
+        const icon = document.getElementById('mobile-menu-icon');
+        if (!drawer) return;
+        const isHidden = drawer.classList.contains('hidden');
+        if (isHidden) {
+            drawer.classList.remove('hidden');
+            if (icon) icon.textContent = 'close';
+        } else {
+            drawer.classList.add('hidden');
+            if (icon) icon.textContent = 'menu';
+        }
+    }
+
+    function closeMobileMenu() {
+        const drawer = document.getElementById('mobile-drawer');
+        const icon = document.getElementById('mobile-menu-icon');
+        if (drawer) drawer.classList.add('hidden');
+        if (icon) icon.textContent = 'menu';
+    }
+
+    // Modal Backdrop Click & Keyboard Listeners
+    const modalContainer = document.getElementById('case-study-modal');
+    if (modalContainer) {
+        modalContainer.addEventListener('click', (e) => {
+            if (e.target === modalContainer) closeCaseStudy();
+        });
+    }
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeCaseStudy();
+    });
+
+    // Background Cybernetic Video Mobile Fallback Autoplay
+    const bgVideo = document.getElementById('bg-video');
+    if (bgVideo) {
+        const triggerVideoPlay = () => {
+            bgVideo.play().catch(() => {});
+        };
+        triggerVideoPlay();
+        ['touchstart', 'touchend', 'click', 'scroll', 'pointerdown'].forEach(evt => {
+            window.addEventListener(evt, triggerVideoPlay, { once: true, passive: true });
+        });
+    }
+
+    // Active Navigation Highlight
+    const navSections = document.querySelectorAll('section');
+    const navAnchors = document.querySelectorAll('.nav-link');
+    window.addEventListener('scroll', () => {
+        let currentId = 'home';
+        const scrollPos = window.pageYOffset + 140;
+        
+        navSections.forEach(sec => {
+            const top = sec.offsetTop;
+            const height = sec.offsetHeight;
+            if (scrollPos >= top && scrollPos < top + height) {
+                currentId = sec.getAttribute('id') || 'home';
+            }
+        });
+
+        navAnchors.forEach(a => {
+            a.classList.remove('text-primary', 'dark:text-primary-fixed-dim', 'border-b-2', 'border-primary', 'dark:border-primary-fixed-dim', 'pb-1');
+            a.classList.add('text-slate-800', 'dark:text-slate-300');
+            if (a.getAttribute('href') === `#${currentId}`) {
+                a.classList.add('text-primary', 'dark:text-primary-fixed-dim', 'border-b-2', 'border-primary', 'dark:border-primary-fixed-dim', 'pb-1');
+                a.classList.remove('text-slate-800', 'dark:text-slate-300');
+            }
+        });
+    }, { passive: true });
+
+    // Live GitHub Contribution Telemetry (https://github.com/Akshat-vishwakarm)
+    (function initGitHubContributions() {
+        const username = 'Akshat-vishwakarm';
+        fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.total && typeof data.total.lastYear === 'number') {
+                    const total = data.total.lastYear;
+                    const heatmapTotal = document.getElementById('gh-heatmap-total');
+                    const cardTotal = document.getElementById('gh-card-total');
+                    if (heatmapTotal) heatmapTotal.textContent = `${total} Contributions`;
+                    if (cardTotal) cardTotal.textContent = `${total}`;
+                }
+            })
+            .catch(err => {
+                console.log('GitHub API offline fallback in use:', err);
+            });
+    })();
+</script>
+
+<!-- ==============================================================
+     TYPEWRITER ANIMATION ENGINE
+     Replaces destroy/scatter kinetic typography with seamless typewriter
+     ============================================================== -->
+<script>
+(function() {
+    'use strict';
+
+    // Persistent dark mode for the fluid cybernetic iridescent background
+    document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('light');
+
+    // Typewriter Animation
+    const typewriterEl = document.getElementById('typewriter-text');
+    if (typewriterEl) {
+        const phrases = [
+            "INTELLIGENT PRODUCTS",
+            "NEURAL ARCHITECTURES",
+            "ADVANCED AI PIPELINES",
+            "DEEP LEARNING MODELS",
+            "HEALTHCARE ML SYSTEMS",
+            "INNOVATIVE SOLUTIONS"
+        ];
+
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let speed = 90;
+
+        function typeLoop() {
+            const currentPhrase = phrases[phraseIndex];
+
+            if (isDeleting) {
+                typewriterEl.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                speed = 45;
+            } else {
+                typewriterEl.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                speed = 90;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                // Pause at end of phrase
+                speed = 1900;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                // Pause before next phrase
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                speed = 350;
+            }
+
+            setTimeout(typeLoop, speed);
+        }
+
+        setTimeout(typeLoop, 400);
+    }
+})();
+</script>
+
+</body>
+</html>
