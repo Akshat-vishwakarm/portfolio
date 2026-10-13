@@ -1,0 +1,185 @@
+%-------------------------
+% Resume in LaTeX
+% Author : Akshat Pankaj Vishwakarma
+% Based on: Jake Gutierrez's Resume Template (MIT License)
+% Compatible with Overleaf, TeXLive, and ATS parsers
+%------------------------
+
+\documentclass[letterpaper,10.8pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{xcolor}
+
+\definecolor{primary}{HTML}{0F172A}
+\definecolor{accent}{HTML}{0284C7}
+\definecolor{textdark}{HTML}{1E293B}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins (compact 1-page layout)
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.0in}
+\addtolength{\topmargin}{-0.55in}
+\addtolength{\textheight}{1.1in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-5pt}\scshape\raggedright\large\bfseries\color{primary}
+}{}{0em}{}[\color{black!30}\titlerule \vspace{-4pt}]
+
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-1.5pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1.5pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \vspace{-1.5pt}\item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.15in]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-4pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    {\Huge \scshape \bfseries Akshat Pankaj Vishwakarma} \\ \vspace{2pt}
+    \small Badlapur West, Maharashtra, India $|$ +91-7977818997 $|$ \href{mailto:akshatvishwakarma259@gmail.com}{\color{accent}akshatvishwakarma259@gmail.com} \\ \vspace{1pt}
+    \href{https://linkedin.com/in/akshat-pankaj-vishwakarma-8a4246327}{\color{accent}\textbf{LinkedIn}} $|$
+    \href{https://github.com/Akshat-vishwakarm}{\color{accent}\textbf{GitHub}} $|$
+    \href{https://portfolio-akshat-vishwakarm.vercel.app}{\color{accent}\textbf{Portfolio}}
+\end{center}
+
+\vspace{-6pt}
+\small{\textbf{AI \& Full-Stack Engineer} and 3rd-year B.Tech CSE (AI \& ML) student at Sanjivani University. Experienced in architecting deployed diagnostic ML platforms, RAG knowledge retrieval systems, and high-performance REST APIs using Python, FastAPI, React, and SQL. Proven rapid prototyping and competitive technical execution with a \textbf{Top 35 finish at SunHacK International 2025} and participation across 7+ national hackathons.}
+\vspace{2pt}
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Sanjivani University}{Maharashtra, India}
+      {B.Tech in Computer Science \& Engineering (Artificial Intelligence \& Machine Learning)}{2024 -- 2028}
+  \resumeSubHeadingListEnd
+  \vspace{-5pt}
+  \hspace{0.15in}\small{\textbf{Relevant Coursework:} Data Structures \& Algorithms, Machine Learning, Database Management Systems (SQL), Operating Systems, Object-Oriented Programming (OOP), RESTful API Architecture}
+  \vspace{3pt}
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Python, Java, C++, JavaScript (ES6+), SQL, HTML5, CSS3, R} \\
+     \textbf{AI / ML \& Data}{: TensorFlow, Scikit-learn, OpenCV, Pinecone (Vector DB), RAG Pipelines, Prompt Engineering} \\
+     \textbf{Backend \& DB}{: FastAPI, Flask, REST APIs, PostgreSQL, MySQL, SQLite, Database Modeling, CRUD Architecture} \\
+     \textbf{Frontend \& UI}{: React, Tailwind CSS, Responsive Web Design, Figma (UI/UX, Wireframing, Component Systems)} \\
+     \textbf{Dev Tools \& Cloud}{: Git, GitHub, Docker, Postman, Vercel Deployment, VS Code, Power BI, Rapid Prototyping}
+    }}
+ \end{itemize}
+ \vspace{-6pt}
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+      \resumeProjectHeading
+          {\textbf{GeneGuard 2.0} $|$ \emph{AI Genomic Health \& Clinical RAG Platform} [\href{https://gene-guard-2-0-frontend.vercel.app/}{\color{accent}Live Demo}] [\href{https://github.com/Akshat-vishwakarm/GeneGuard-2.0}{\color{accent}Code}]}{\small React, FastAPI, Scikit-learn, Pinecone, Vercel}
+          \resumeItemListStart
+            \resumeItem{Architected a full-stack diagnostic AI platform deploying 5 specialized ML pipelines (Cardiovascular, Metabolic, Thyroid), achieving \textbf{80.2\% ROC-AUC} and \textbf{77.4\% precision} on benchmark evaluations.}
+            \resumeItem{Implemented an evidence-backed Medical RAG engine combining \textbf{Pinecone vector database} with \emph{all-MiniLM-L6-v2} embeddings over the Gale Encyclopedia of Medicine for hallucination-resistant clinical Q\&A.}
+            \resumeItem{Developed an interactive multi-generational family risk tree isolating hereditary risk factors and built an OCR document processing pipeline for automated laboratory blood report extraction.}
+            \resumeItem{Deployed decoupled architecture with sub-200ms API inference latency via FastAPI microservices and responsive React frontend.}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\textbf{SupplyGuard AI} $|$ \emph{Predictive Logistics \& Disruption Forecasting} [\href{https://supply-guard-2-0.vercel.app/}{\color{accent}Live Demo}] [\href{https://github.com/Akshat-vishwakarm/supply_guard_2.0}{\color{accent}Code}]}{\small Python, TensorFlow, PostgreSQL, React}
+          \resumeItemListStart
+            \resumeItem{Engineered an intelligent freight analytics system using \textbf{TensorFlow \& Scikit-learn} to forecast global shipment bottlenecks, multi-echelon inventory risks, and port transit delays.}
+            \resumeItem{Built dynamic route optimization and scenario-analysis workflows analyzing carrier telemetry, weather anomalies, and historical disruption patterns.}
+            \resumeItem{Designed transactional PostgreSQL data schemas and rendered interactive real-time risk dashboards in React, reducing manual tracking overhead.}
+          \resumeItemListEnd
+
+      \resumeProjectHeading
+          {\textbf{Smart College ERP System} $|$ \emph{Institutional Management \& Anti-Proxy Engine}}{\small React, FastAPI, SQL, Geolocation, Dynamic QR}
+          \resumeItemListStart
+            \resumeItem{Developed an enterprise campus ERP system featuring an anti-proxy attendance verification engine combining \textbf{dynamically refreshed 15-second QR codes} with radius geolocation validation.}
+            \resumeItem{Architected relational database schemas and automated workflows for student grading, timetable scheduling, and institutional reporting supporting 1,000+ prospective users.}
+            \resumeItem{Built role-based access control (RBAC) dashboards with granular permission tiers for administrators, faculty, and students.}
+          \resumeItemListEnd
+    \resumeSubHeadingListEnd
+    \vspace{-4pt}
+
+%-----------EXPERIENCE & HACKATHONS-----------
+\section{Experience \& Hackathon Achievements}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Hackathons \& Technical Competitions}{National \& International}
+      {Lead Developer \& Finalist}{2025 -- 2026}
+      \resumeItemListStart
+        \resumeItem{\textbf{Top 35 Finalist -- SunHacK International 2025:} Pitched an AI-driven prototype selected among top entries globally at Sandip University under intensive 36-hour sprint conditions.}
+        \resumeItem{\textbf{7+ National Hackathons:} Competed in \textbf{Smart India Hackathon (SIH) 2026}, \textbf{DIPEX 2025 \& 2026}, and \textbf{Eureka 2025}; led cross-functional teams translating ambiguous problem statements into production-ready software prototypes.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Freelance UI/UX \& Graphic Designer}{Remote}
+      {Freelance}{2023 -- Present}
+      \resumeItemListStart
+        \resumeItem{Designed responsive web interfaces, interactive prototypes, and design systems in Figma for commercial clients, ensuring WCAG accessibility and brand consistency.}
+        \resumeItem{Partnered directly with founders and developers to iterate on user experience wireframes, delivering 20+ design assets with 100\% on-time milestone delivery.}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+  \vspace{-4pt}
+
+%-----------CERTIFICATIONS-----------
+\section{Certifications}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{IBM:}{ Python for Data Science, R Programming, IBM Watson AI, DevOps Foundations, SPSS Statistics} \\
+     \textbf{Great Learning:}{ Prompt Engineering Specialization, Data Science Foundation}
+    }}
+ \end{itemize}
+
+%-------------------------------------------
+\end{document}
