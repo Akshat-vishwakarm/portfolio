@@ -400,6 +400,35 @@
             opacity: 1;
         }
 
+        /* Shake Animation for Admin Vault */
+        @keyframes adminShake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        .animate-shake {
+            animation: adminShake 0.4s ease-in-out;
+        }
+
+        /* Admin Vault Modal Transitions */
+        #admin-vault-modal {
+            transition: opacity 0.3s ease-out, visibility 0.3s;
+        }
+        #admin-vault-modal.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        #admin-vault-container {
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease-out;
+            transform: scale(0.96) translateY(20px);
+            opacity: 0;
+        }
+        #admin-vault-modal:not(.hidden) #admin-vault-container {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
         /* Custom Glass Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
@@ -464,7 +493,7 @@
 <!-- Top Navigation Bar with Mobile Responsiveness -->
 <nav class="fixed top-0 w-full z-50 glass-nav transition-colors duration-300">
     <div class="flex justify-between items-center max-w-[1280px] mx-auto px-4 sm:px-gutter py-3.5 sm:py-4">
-        <a href="#home" class="font-display text-2xl font-black text-slate-900 dark:text-white tracking-tighter hover:opacity-85 transition-opacity">
+        <a href="#home" id="nav-brand-logo" class="font-display text-2xl font-black text-slate-900 dark:text-white tracking-tighter hover:opacity-85 transition-all select-none cursor-pointer" title="Akshat Vishwakarma (Click 3x for Secret Admin Vault)">
             AKSHAT
         </a>
         
@@ -1123,9 +1152,267 @@
     </div>
 </div>
 
+<!-- Secret Admin Vault Modal -->
+<div class="fixed inset-0 z-[70] hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 transition-all duration-300" id="admin-vault-modal" role="dialog" aria-modal="true" aria-labelledby="admin-vault-title">
+    <div class="relative w-full max-w-2xl bg-slate-900/95 text-slate-100 border border-cyan-500/30 rounded-3xl shadow-2xl shadow-cyan-950/60 overflow-hidden flex flex-col max-h-[92vh] transition-all" id="admin-vault-container">
+        
+        <!-- Modal Top Bar -->
+        <div class="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-white/[0.02]">
+            <div class="flex items-center gap-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                <span class="font-mono text-xs font-semibold tracking-wider text-cyan-400 uppercase">System Security // Secret Admin Vault</span>
+            </div>
+            <button id="admin-close-btn" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer" aria-label="Close Admin Modal">
+                <span class="material-symbols-outlined text-lg">close</span>
+            </button>
+        </div>
+
+        <!-- Scrollable Modal Body -->
+        <div class="overflow-y-auto px-6 py-6 sm:px-8 sm:py-8 space-y-6">
+
+            <!-- VIEW 1: Password Authentication Screen -->
+            <div id="admin-auth-view" class="space-y-6 py-4">
+                <div class="text-center space-y-3">
+                    <div class="inline-flex w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 items-center justify-center text-cyan-400 shadow-lg shadow-cyan-500/20">
+                        <span class="material-symbols-outlined text-3xl">enhanced_encryption</span>
+                    </div>
+                    <h3 id="admin-vault-title" class="text-2xl sm:text-3xl font-black tracking-tight text-white font-display">Administrative Vault</h3>
+                    <p class="text-sm text-slate-400 max-w-md mx-auto">
+                        Triple-click verification recognized. Enter master security passcode to unlock resume controls.
+                    </p>
+                </div>
+
+                <div class="max-w-md mx-auto space-y-4">
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined text-xl">key</span>
+                        <input type="password" id="admin-pass-input" placeholder="Enter admin password..." 
+                               class="w-full bg-black/40 border border-white/15 focus:border-cyan-400 rounded-2xl pl-12 pr-12 py-3.5 text-white placeholder-slate-500 text-center tracking-widest text-lg font-mono focus:outline-none focus:ring-2 focus:ring-cyan-400/25 transition-all"
+                               autocomplete="current-password" />
+                        <button type="button" id="admin-pass-toggle" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors cursor-pointer" title="Toggle password visibility">
+                            <span class="material-symbols-outlined text-xl" id="admin-pass-toggle-icon">visibility</span>
+                        </button>
+                    </div>
+
+                    <!-- Error Alert -->
+                    <div id="admin-auth-error" class="hidden bg-rose-500/15 border border-rose-500/40 text-rose-300 text-xs sm:text-sm px-4 py-3 rounded-xl flex items-center gap-2">
+                        <span class="material-symbols-outlined text-base text-rose-400">error</span>
+                        <span id="admin-auth-error-text">Access Denied: Incorrect password.</span>
+                    </div>
+
+                    <button type="button" id="admin-auth-submit-btn" class="w-full py-3.5 rounded-2xl font-bold text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-blue-500 transition-all shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]">
+                        <span class="material-symbols-outlined text-xl">lock_open</span>
+                        <span>Unlock Admin Vault</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- VIEW 2: Admin Dashboard (Hidden initially) -->
+            <div id="admin-dashboard-view" class="hidden space-y-6">
+                <!-- Status Banner -->
+                <div class="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/20">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-300">
+                            <span class="material-symbols-outlined text-2xl">verified_user</span>
+                        </div>
+                        <div>
+                            <div class="font-bold text-sm text-white">Akshat Control Center</div>
+                            <div class="text-xs text-cyan-300/80">Master Session Active &bull; Passcode Verified</div>
+                        </div>
+                    </div>
+                    <button id="admin-logout-btn" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 transition-colors flex items-center gap-1.5 cursor-pointer">
+                        <span class="material-symbols-outlined text-sm">lock</span>
+                        <span>Lock &amp; Logout</span>
+                    </button>
+                </div>
+
+                <!-- Current Resume Status Card -->
+                <div class="p-5 rounded-2xl bg-white/[0.03] border border-white/10 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-mono tracking-wider text-slate-400 uppercase font-semibold">Active Resume Configuration</span>
+                        <span id="admin-active-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                            Active (Live)
+                        </span>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 shrink-0">
+                                <span class="material-symbols-outlined text-2xl">picture_as_pdf</span>
+                            </div>
+                            <div>
+                                <div id="admin-active-filename" class="font-bold text-sm text-white font-mono">Akshat_Vishwakarma_Resume.pdf</div>
+                                <div id="admin-active-meta" class="text-xs text-slate-400">1-Page ATS Standard &bull; Initial Base Embedded</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button id="admin-preview-active-btn" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-cyan-300 border border-cyan-500/20 transition-colors flex items-center gap-1 cursor-pointer">
+                                <span class="material-symbols-outlined text-sm">visibility</span>
+                                <span>Preview</span>
+                            </button>
+                            <button id="admin-download-active-btn" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-cyan-500/20 hover:bg-cyan-500/30 text-white border border-cyan-500/40 transition-colors flex items-center gap-1 cursor-pointer">
+                                <span class="material-symbols-outlined text-sm">download</span>
+                                <span>Test Download</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload New Resume Section -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <label class="text-sm font-bold text-white flex items-center gap-2">
+                            <span class="material-symbols-outlined text-cyan-400 text-lg">cloud_upload</span>
+                            <span>Upload Updated Resume (PDF)</span>
+                        </label>
+                        <span class="text-xs text-slate-400">Accepts .PDF only</span>
+                    </div>
+
+                    <!-- Drag & Drop Zone -->
+                    <div id="admin-dropzone" class="border-2 border-dashed border-cyan-500/30 hover:border-cyan-400/80 bg-cyan-950/10 hover:bg-cyan-950/20 rounded-2xl p-6 text-center transition-all cursor-pointer group">
+                        <input type="file" id="admin-file-picker" accept="application/pdf" class="hidden" />
+                        <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mx-auto mb-3 group-hover:scale-110 group-hover:bg-cyan-500/20 transition-all">
+                            <span class="material-symbols-outlined text-2xl">upload_file</span>
+                        </div>
+                        <p class="text-sm font-semibold text-white">Click to browse or drag &amp; drop updated resume</p>
+                        <p class="text-xs text-slate-400 mt-1">PDF format (Single or 2-page ATS standard recommended)</p>
+                    </div>
+
+                    <!-- Selected Staged File Preview (Hidden until a file is selected) -->
+                    <div id="admin-staged-card" class="hidden p-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-rose-400 text-2xl">picture_as_pdf</span>
+                                <div>
+                                    <div id="admin-staged-name" class="font-bold text-xs sm:text-sm text-white font-mono">resume.pdf</div>
+                                    <div id="admin-staged-size" class="text-[11px] text-cyan-300">0 KB &bull; Loaded in memory</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button id="admin-staged-preview-btn" class="px-2.5 py-1 rounded-lg text-xs bg-white/10 hover:bg-white/20 text-cyan-200 transition-colors flex items-center gap-1 cursor-pointer">
+                                    <span class="material-symbols-outlined text-xs">visibility</span> Preview
+                                </button>
+                                <button id="admin-staged-remove-btn" class="text-slate-400 hover:text-rose-400 transition-colors p-1" title="Cancel this file">
+                                    <span class="material-symbols-outlined text-base">close</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Distribution & Sync Controls (Show to Everyone) -->
+                <div class="space-y-4 pt-2">
+                    <div class="text-xs font-mono tracking-wider text-slate-400 uppercase font-semibold">Distribution &amp; Deployment Engine</div>
+
+                    <!-- METHOD A: 🚀 Push Live to Everyone Worldwide (GitHub + Vercel) -->
+                    <div class="p-5 rounded-2xl bg-gradient-to-br from-cyan-950/30 via-slate-900 to-blue-950/30 border border-cyan-500/40 space-y-3 shadow-lg shadow-cyan-950/40">
+                        <div class="flex items-start justify-between gap-2">
+                            <div>
+                                <div class="font-bold text-sm sm:text-base text-white flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-cyan-400 text-xl">rocket_launch</span>
+                                    <span>Deploy Live to Everyone Worldwide</span>
+                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-400/20 text-cyan-300 border border-cyan-400/40">GitHub &bull; Vercel</span>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-1">
+                                    Commits your new resume directly to your GitHub repository (<span class="text-cyan-300 font-mono">Akshat-vishwakarm/portfolio</span>). Vercel automatically deploys it globally in ~15 seconds so every recruiter gets your updated resume.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Token Input & Settings -->
+                        <div class="space-y-2 pt-1">
+                            <label class="text-xs font-semibold text-slate-300 flex items-center justify-between">
+                                <span>GitHub Personal Access Token:</span>
+                                <button type="button" id="admin-gh-help-toggle" class="text-cyan-400 hover:underline text-[11px] flex items-center gap-0.5 cursor-pointer">
+                                    <span>Where do I get this?</span>
+                                    <span class="material-symbols-outlined text-xs">help</span>
+                                </button>
+                            </label>
+
+                            <!-- Help Box (Collapsible) -->
+                            <div id="admin-gh-help-box" class="hidden p-3.5 rounded-xl bg-black/40 border border-white/10 text-xs text-slate-300 space-y-1.5 leading-relaxed">
+                                <div class="font-bold text-cyan-300">How to get your GitHub Token in 30 seconds:</div>
+                                <ol class="list-decimal list-inside space-y-1 text-slate-400">
+                                    <li>Open <a href="https://github.com/settings/tokens" target="_blank" rel="noopener" class="text-cyan-400 underline">github.com/settings/tokens</a> in a new tab.</li>
+                                    <li>Click <b>Generate new token (classic)</b>.</li>
+                                    <li>Give it a Note: <code class="text-cyan-300 bg-white/5 px-1 rounded">Portfolio Resume Admin</code> and check the <code class="text-cyan-300 bg-white/5 px-1 rounded">repo</code> scope checkbox.</li>
+                                    <li>Click <b>Generate token</b> and copy/paste it below!</li>
+                                </ol>
+                            </div>
+
+                            <div class="relative">
+                                <input type="password" id="admin-gh-token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" 
+                                       class="w-full bg-black/50 border border-white/15 focus:border-cyan-400 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-600 font-mono focus:outline-none focus:ring-1 focus:ring-cyan-400/30" />
+                                <button type="button" id="admin-gh-token-toggle" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs cursor-pointer">
+                                    <span class="material-symbols-outlined text-sm" id="admin-gh-token-toggle-icon">visibility</span>
+                                </button>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-1 text-[11px] text-slate-400">
+                                <label class="flex items-center gap-1.5 cursor-pointer">
+                                    <input type="checkbox" id="admin-gh-remember" checked class="rounded bg-black/40 border-white/20 text-cyan-500 focus:ring-cyan-400/30" />
+                                    <span>Remember token securely in this browser</span>
+                                </label>
+                                <span class="text-slate-500">Branch: <code class="text-slate-400">main</code></span>
+                            </div>
+                        </div>
+
+                        <!-- Deploy Button & Status Box -->
+                        <div class="pt-2">
+                            <button type="button" id="admin-gh-deploy-btn" class="w-full py-3 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 transition-all shadow-md shadow-cyan-500/20 flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed">
+                                <span class="material-symbols-outlined text-lg">cloud_sync</span>
+                                <span>🚀 Publish &amp; Deploy Live to World (Vercel)</span>
+                            </button>
+
+                            <!-- Live Progress Logs -->
+                            <div id="admin-gh-status" class="hidden mt-3 p-3 rounded-xl bg-black/50 border border-white/10 text-xs font-mono space-y-1">
+                                <!-- Dynamic Status Logs via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- METHOD B: 💾 Instant Local & Offline Sync -->
+                    <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
+                        <div class="font-bold text-xs sm:text-sm text-slate-200 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-indigo-400 text-lg">devices</span>
+                            <span>Local Browser &amp; Offline Update</span>
+                        </div>
+                        <p class="text-xs text-slate-400">
+                            Updates your local browser cache immediately and allows direct downloading of the updated assets for your local project folder.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+                            <button id="admin-local-apply-btn" class="px-3 py-2 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+                                <span class="material-symbols-outlined text-sm text-cyan-400">bolt</span>
+                                <span>Apply to Browser</span>
+                            </button>
+                            <button id="admin-download-pdf-btn" class="px-3 py-2 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+                                <span class="material-symbols-outlined text-sm text-rose-400">download</span>
+                                <span>Download PDF</span>
+                            </button>
+                            <button id="admin-download-html-btn" class="px-3 py-2 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+                                <span class="material-symbols-outlined text-sm text-emerald-400">code</span>
+                                <span>Download index.html</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Reset to Default Button -->
+                    <div class="flex justify-end pt-1">
+                        <button id="admin-reset-default-btn" class="text-xs text-slate-400 hover:text-rose-400 transition-colors flex items-center gap-1 cursor-pointer">
+                            <span class="material-symbols-outlined text-sm">restart_alt</span>
+                            <span>Reset to Default ATS Resume</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Footer -->
 <footer class="w-full py-14 flex flex-col items-center gap-6 px-gutter border-t border-white/20 dark:border-white/5 glass-footer transition-colors duration-300">
-    <div class="font-display text-2xl text-primary dark:text-primary-fixed-dim font-black tracking-tighter">AKSHAT</div>
+    <div id="footer-brand-logo" class="font-display text-2xl text-primary dark:text-primary-fixed-dim font-black tracking-tighter select-none cursor-pointer hover:opacity-85 transition-all" title="Akshat Vishwakarma (Click 3x for Secret Admin Vault)">AKSHAT</div>
     <p class="font-body-md text-sm text-on-surface-variant dark:text-slate-400 text-center max-w-md">
         &copy; 2024 Akshat Vishwakarma. Built with AI &amp; ML Precision.
     </p>
@@ -1668,48 +1955,682 @@
 })();
 </script>
 
-<!-- Embedded In-Memory Resume Downloader (Guarantees zero-404 instant downloads across localhost and production) -->
+<!-- Embedded Resume Engine & Secret Admin Vault Controller -->
 <script id="resume-embed-engine">
 (function() {
+    // Initial Embedded Base64 Resume (Default 1-Page ATS Standard)
     const RESUME_B64 = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgOCAwIFIgL0Y0IDExIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjEgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iagozIDAgb2JqCjw8Ci9CYXNlRm9udCAvSGVsdmV0aWNhLUJvbGQgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YyIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKNCAwIG9iago8PAovQSA8PAovUyAvVVJJIC9UeXBlIC9BY3Rpb24gL1VSSSAobWFpbHRvOmFrc2hhdHZpc2h3YWthcm1hMjU5QGdtYWlsLmNvbSkKPj4gL0JvcmRlciBbIDAgMCAwIF0gL1JlY3QgWyAyODEuNDg2IDcyNS41NCA0MTQuNDQzNyA3MzUuNSBdIC9TdWJ0eXBlIC9MaW5rIC9UeXBlIC9Bbm5vdAo+PgplbmRvYmoKNSAwIG9iago8PAovQSA8PAovUyAvVVJJIC9UeXBlIC9BY3Rpb24gL1VSSSAoaHR0cHM6Ly9saW5rZWRpbi5jb20vaW4vYWtzaGF0LXBhbmthai12aXNod2FrYXJtYS04YTQyNDYzMjcpCj4+IC9Cb3JkZXIgWyAwIDAgMCBdIC9SZWN0IFsgNDI1LjgzMTMgNzI1LjU0IDQ1OS45NjA5IDczNS41IF0gL1N1YnR5cGUgL0xpbmsgL1R5cGUgL0Fubm90Cj4+CmVuZG9iago2IDAgb2JqCjw8Ci9BIDw8Ci9TIC9VUkkgL1R5cGUgL0FjdGlvbiAvVVJJIChodHRwczovL2dpdGh1Yi5jb20vQWtzaGF0LXZpc2h3YWthcm0pCj4+IC9Cb3JkZXIgWyAwIDAgMCBdIC9SZWN0IFsgNDcxLjM0ODUgNzI1LjU0IDQ5OS4wMTI0IDczNS41IF0gL1N1YnR5cGUgL0xpbmsgL1R5cGUgL0Fubm90Cj4+CmVuZG9iago3IDAgb2JqCjw8Ci9BIDw8Ci9TIC9VUkkgL1R5cGUgL0FjdGlvbiAvVVJJIChodHRwczovL3BvcnRmb2xpby1ha3NoYXQtdmlzaHdha2FybS52ZXJjZWwuYXBwKQo+PiAvQm9yZGVyIFsgMCAwIDAgXSAvUmVjdCBbIDUxMC40IDcyNS41NCA1NDQuNTIxMyA3MzUuNSBdIC9TdWJ0eXBlIC9MaW5rIC9UeXBlIC9Bbm5vdAo+PgplbmRvYmoKOCAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkT2JsaXF1ZSAvRW5jb2RpbmcgL1dpbkFuc2lFbmNvZGluZyAvTmFtZSAvRjMgL1N1YnR5cGUgL1R5cGUxIC9UeXBlIC9Gb250Cj4+CmVuZG9iago5IDAgb2JqCjw8Ci9BIDw8Ci9TIC9VUkkgL1R5cGUgL0FjdGlvbiAvVVJJIChodHRwczovL2dlbmUtZ3VhcmQtMi0wLWZyb250ZW5kLnZlcmNlbC5hcHAvKQo+PiAvQm9yZGVyIFsgMCAwIDAgXSAvUmVjdCBbIDI4Ni42MDg1IDUwNC41MSAzMzAuNjA0NCA1MTQuOTUgXSAvU3VidHlwZSAvTGluayAvVHlwZSAvQW5ub3QKPj4KZW5kb2JqCjEwIDAgb2JqCjw8Ci9BIDw8Ci9TIC9VUkkgL1R5cGUgL0FjdGlvbiAvVVJJIChodHRwczovL2dpdGh1Yi5jb20vQWtzaGF0LXZpc2h3YWthcm0vR2VuZUd1YXJkLTIuMCkKPj4gL0JvcmRlciBbIDAgMCAwIF0gL1JlY3QgWyAzMzguODE3MiA1MDQuNTEgMzYwLjU2NzIgNTE0Ljk1IF0gL1N1YnR5cGUgL0xpbmsgL1R5cGUgL0Fubm90Cj4+CmVuZG9iagoxMSAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1PYmxpcXVlIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GNCAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjEyIDAgb2JqCjw8Ci9BIDw8Ci9TIC9VUkkgL1R5cGUgL0FjdGlvbiAvVVJJIChodHRwczovL3N1cHBseS1ndWFyZC0yLTAudmVyY2VsLmFwcC8pCj4+IC9Cb3JkZXIgWyAwIDAgMCBdIC9SZWN0IFsgMzAwLjEzNyA0MTEuNDEgMzQ0LjEzMjkgNDIxLjg1IF0gL1N1YnR5cGUgL0xpbmsgL1R5cGUgL0Fubm90Cj4+CmVuZG9iagoxMyAwIG9iago8PAovQSA8PAovUyAvVVJJIC9UeXBlIC9BY3Rpb24gL1VSSSAoaHR0cHM6Ly9naXRodWIuY29tL0Frc2hhdC12aXNod2FrYXJtL3N1cHBseV9ndWFyZF8yLjApCj4+IC9Cb3JkZXIgWyAwIDAgMCBdIC9SZWN0IFsgMzUyLjM0NTcgNDExLjQxIDM3NC4wOTU3IDQyMS44NSBdIC9TdWJ0eXBlIC9MaW5rIC9UeXBlIC9Bbm5vdAo+PgplbmRvYmoKMTQgMCBvYmoKPDwKL0Fubm90cyBbIDQgMCBSIDUgMCBSIDYgMCBSIDcgMCBSIDkgMCBSIDEwIDAgUiAxMiAwIFIgMTMgMCBSIF0gL0NvbnRlbnRzIDE4IDAgUiAvTWVkaWFCb3ggWyAwIDAgNjEyIDc5MiBdIC9QYXJlbnQgMTcgMCBSIC9SZXNvdXJjZXMgPDwKL0ZvbnQgMSAwIFIgL1Byb2NTZXQgWyAvUERGIC9UZXh0IC9JbWFnZUIgL0ltYWdlQyAvSW1hZ2VJIF0KPj4gL1JvdGF0ZSAwIAogIC9UcmFucyA8PAoKPj4gL1R5cGUgL1BhZ2UKPj4KZW5kb2JqCjE1IDAgb2JqCjw8Ci9QYWdlTW9kZSAvVXNlTm9uZSAvUGFnZXMgMTcgMCBSIC9UeXBlIC9DYXRhbG9nCj4+CmVuZG9iagoxNiAwIG9iago8PAovQXV0aG9yIChcKGFub255bW91c1wpKSAvQ3JlYXRpb25EYXRlIChEOjIwMjYxMDEzMTEyMzQzKzA1JzAwJykgL0NyZWF0b3IgKFwodW5zcGVjaWZpZWRcKSkgL0tleXdvcmRzICgpIC9Nb2REYXRlIChEOjIwMjYxMDEzMTEyMzQzKzA1JzAwJykgL1Byb2R1Y2VyIChSZXBvcnRMYWIgUERGIExpYnJhcnkgLSBcKG9wZW5zb3VyY2VcKSkgCiAgL1N1YmplY3QgKFwodW5zcGVjaWZpZWRcKSkgL1RpdGxlIChcKGFub255bW91c1wpKSAvVHJhcHBlZCAvRmFsc2UKPj4KZW5kb2JqCjE3IDAgb2JqCjw8Ci9Db3VudCAxIC9LaWRzIFsgMTQgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iagoxOCAwIG9iago8PAovRmlsdGVyIFsgL0FTQ0lJODVEZWNvZGUgL0ZsYXRlRGVjb2RlIF0gL0xlbmd0aCA0NDU2Cj4+CnN0cmVhbQpHYiFTbmhmSWVlWkA6LCxkNF8hM2ddPVUuP2p1NTQ+WEN1dSVbaUVvYlxZaFNJMVVRKGc9VlJMLGEyZypyOi1bZ1tYZl1XVWg2b0ZXcFduXj91NzBzPjI8UDhoKDkuQkU1QWwxaXNhamYkR1cwWmk7Iyd0S0BiLUkwSEl1O0hNI09ZbmklVG01IiVdVyNwSVRTcmQhUzdAQWkucF5pP3VoZjU2MCNbOUpkSiMuNkVPU1E+QDFoWjBNa3ItSWRgN21qMXFuMy1VZkpgalg/LU9ONFtAQEZ1J24nZ0AnMmhjOD9vO0NHYG45JF8kcjc6YnBdPW1LWEpFXC4wckBfaEoqXGBzJmgmUDY1Jl5QQlxfRUY0I25PXEhYRkJWTmhXZVBrYydYWyVgJzlIVV4rKkNiPCM+U1wsIi9rNys7KitvZ0o8Tm90VWIiLzVIcF9gaEU1ZSw6MHRmRSQyLi5nRmMyYXI5LWlZWVwhJ1lTPkIlMmc3Tm48Tj1VTSRkdFZyUEBxLFdNSjZbOUY1Jjs5Jy1XXjBRbFdsUW4+O1kqVFtjU3VJXEVASj42ZSk8N1wwYkgpXDQ1aURTS2RRLGdoNGc9WDlNZ0otUFUpTlZNJUs0WSooWWk3MlppQVp1QSNbW1dWSGUiVGxga0hyWmBTREttPCYpKVFRSjNDT1IxMFQ3Vy1RX0BKVHRxbFU3UmhPWjhwaUhjTjJKbkNmLSkzLkJjaDsuL01NJUgvL0xNX285RyUjYVJfKztTMylXWj9lWFBGTVVkI207X2xZKXQubUZmJCEvVGcnRjE+cmckV2tqQU9kO148YiIwRVZ0OHJubzpSMy4pPGNLaD9FbUckc2ZQTmYnVGYwYGBuV1dIY01vYGVLQlQsYWJLTU48cGwjL1ZNVy5hKUVvOSgkM207KjVDNkdHSW1HPixZc2hyOTluYEdoIkVBWT9IQG05UDZIUClVSCNEWSRAOGZgZExTbkItIXIzbTNAWXJiNyNaKEhRcVgyNCpibSlbWFpwLV1WJWFAdUJBMyF0X1pubT9NYlEzVkVcaGBEWFEwXWwuJGpILUVbP10lbF5VRiJPWlg5SixhTVNuTClbaW4wR2xHSE8nKWhiLWNVbCE7U1dBbjk0NUF0O2VeTSxFc1ArIkYyQE90V2oqLCUvSCxjPkA4STgiVUtJcjxsXEAsNTs5a0ViMSFmNV9KXTE1ciVGSVx1TipXYWFUJF48QDtbXjpqbDY8XkddIWhhRDpYRUI2RFYmVCwyIyMqLzpCa0g9cVJ1Ll9xWF9OLGdORmgnTUdYV2k3aXFTT2pAITpaPiZaTWdrXV43aEY/NGpeIyZucC8samEubF9IJG5IODdEKCI6Ozc4KmNtJ1g7RjQqRmJQMWRob0c6VlhJQkxEZ25HVDM/IjdkK1xaUGMjOzFrJFMidWkkQUAwbDNVNjluKT1FRjE8VSZYJDc8JU4pRT9UYC1sTG0lbiVHW1JRNWY4Sk86QDgiajk0amAnOjxzT2suY1knRGhwZnFsYU5OWSsuV2t0bUIzc11vayc3RiJLaURtSGZYbCUtUmImOCZfPUxyQGJpVzVcNzM8Pz9QWjhvSzJoVUZmUSFYK0plTCtSTDtDZywrdVktQSVFSGdnKEssN1osVUJwMG5XRjk1Jk1iWkI9Pl1DNUIxc09UMHU0V20mY1BLc2kuOE0oYWonJjs2TmFLNDw2VihBb3I4JkVaVGctJWMiaG51SyxYZU4pKFc2by9CYzMtXXRQUTpHZiRKK09WMW5iWTZONjxpQmA3aWdKNXEsbkVDPixYXjhZbURiZ1c6YktuKFREWmw4Il9wTi48OmEuaT1VM0g4IV5rXS01bHVnblFHRj9PQyhJXiNlQFNzPzVsQCU1XCNEcT9qTURfKCxuUk1COyZoQk9tXDJ0UiVnKW9ScC05JVwoPllfSWxAMD9AaTheTiJCNl5lPENZMmQ6azdYQEdzJ3M6I0ZDaSs6T0RQZWhoPDlMNi5CRnImOUY0M2gpWWNZYSFybXFANVxcTTtTS1kqR08oYFRJNG0qbHFhbWZMS2thLTZ0XSUxOCh0REtgO0xpLDc7M2RzQ0s9VCFKLDQ3NytVTGg3KSExPT9mVExeMklpKklmbVxnUnRYMVVBbGlkRjB0QTBBSz1mdGwnQURmSSFXQ2IrQjVfdDEwUGljOnBZUDJHUC88SDFyQSowO2Y4QCs0KSxEP2E4QjpqaGNLSkw/OXE6OGBjSlQqZz9QKSZQTWk+TC5hZDp0aT9bY3EvMm0uLCYocjkiY0wqJWpmJkZEYFFVITojLlZ0OGM3NGk4Ii5WK18yUHFsKS0wSTJmb1lWRW9cYU1jZy8tQTowSDw0UCNJSiMoL2lTQGdaazc/a1BeYGk5TE9CMS10Y2EiIkg4TjJXLCFWYEY7LTtIT1JCTGosTE1mbikxWCwkSihlNHBVcSRrckAjbU1EbStYMG9WVnJRMj1ycEtbZSFmNi5XZyotbEs5biMkUFtoXzBVNzFXXD9BaS9oQE07OWFHZS9ZTShDTVdDR2lhTWkiaV0iWnNlYDpRUXRoLHM3YiVIR3NqOSxMMDlxXyo+OEFPaTpZZEUkdCNYampgPj9ZWy9EYWFIX0Usa1orVHAkcjRtJUREOC5RWTwjRG9sYyxdQEpOWE43OUQ+RSNVLF9sWTNYNWUtbnJmMjRFPEokJiY5ZiRJL29RNk5lZHJqR0Bjaj1PTmtJSGdpZiouREpga2lYdDBgX0siYic6Pj1HXiM9cWhAU3RKWjpbUm0kcHI8JGBnaW4nMDIqZGFrJm89L105PkVXJCghMD5qISYnNyFFV3NlOVZzcGleaVsrZk9zXnFwTSk0LkstSlBmOiRHJVlUcnJUW11yRllMa0loL2hKYnEzXnI0SVJPUVNDVD9ULnVfJSQ7WEJmQCRDSU5DUVBpYHI1Zm4iU28+Lz0pP246UylTTXFWO0dGY2wxYj5aVE9rdTdmRE1DNFlNMWhSTkcnPWJuaWowcl4kImlOMGNFTnJsOSltNklyUjdeQXJtUUtqPiQkYy1VWz0tP0tbIUJVbysnZ2BvbUgyUksxRDcjMy00KElyJTxALjBiUyZsZFYmTCVEbGYyTHVpY1VkNiolPFwsbzVaWG9LdDEwZUE4LDVjXU0tSjskOHBGaTtOblZGV2dhV1tObSFMP2lGPDRoSUF0WVFTZVNUZW1HUFQ+a21VWCxbbV9bYVdAWWtwPk5qLmNlRjtUJUtoWl0rWF5UTDFTdXRBIUkxSmRqIW5UMVpvOlJCWjlYbk4ySDlHbl9CJWtmaUFkKHM+OW4yITZLZ2BxNzlyYDRbQSg3cWQ7bkpeUSxxRnF1Zk0yZUhhQTVRLzJOcyI5V1JgYXJWK2EtXy9zUUo4ZG9hX2czMzZATEhwUDxXajFnM1NTOEc5NChzPSshOFp0NTJaRiFTOmJhUTkzQiVlU14+Zy0ndUMtXW9NTUtmUlxjPicjLE4pUnQrZVZfQ0xXYCpia1QqOUEpPThbJ0VuVGtIOygjVyg3bjpWXmVnYi8tLlQzLD5JbmlVM0VqSWVHWlNLIU8waV8hRHFhVFgnOS1XNTYwWzQ2MyQvaiNDLEEjQEA1czUzPHVraFojImkmYWRwbDtXNDRCPlY4QGpESC9ROWw0K3NoQXBzISgnTDBcXF4nKEtGNlhgZiRYZFxrKEJjRjVLbV4tTmkqa20oKUZtcHFZM05wTiIzdSlVRTtZTTZtPjJjTyZtLzwmSmpoLyU8MVtGZWdga0tIKU8kbzJwZyxtLyhyXmBWVz9oOj8taltKV2A+OmtjV2pIWDViVT1lcDJpcUZpZXFgOjMmNEo4OXBqRmpgZURiXFgoNiFMSlAoYzJgXGAiRytYIiRjIyJFXVRTLjUlKWpoM3IsUE1WTD1aJXRuKzs/Mm0+Y08tcm45X0NRPHMwUF1FbyNAcUcnJENIbm05MCRuVHFxPVNQSzRoTF9rYVdNP1NFaSsiPy1qKV08a1hfSDJeW1doUSwvNlA0J2xERyRnO2hsKTY6I0gsaD8iPyxIWDp1MkBcITolJVJeUmJGKWxqZDhWbShHZTpoRyNmWnAkLTQ2J2VQNDpeNjVJJE0jWkY+QzdkLlhFbHFBZkVjPGQySTxJaCk2ZDlNbTV0OWxZXzxcL2VXc01WI2JdOmhbYitEOGBaI1txXjZ1NF5pU1ZYUTYjPiQ3OSpRVSoraDo9RGJURGZDXzBYVi1TYk4oRlczIj5Nai8xPWxpXkRSdTFcSGQxY2k1ZWFMLz0uZk1DaCxcIXJ0YEFMIStaRm5RWFMxN0ArLDtZJkBAUEBpZF9qZTI6ND85SzZDa2xuXk1VLVJZbiRhUEIoI2xIXjMlKXVkbDZSZThLaFk5ZTYqZDhqJT5yLlw2MmFdNVROSyY9JT8lQF5ARHUtOWZXVSZCZW5sKDByLWBuSmMiQGIoVm1iL11WYF4ib0E0KUgmJj0vLG5oNXN1MDUsbT0tT0NIaW4vVmJdQj1tci44cGBsQ1spKVJuODAoUztuMVgxNFRmNic6akNUJSpgaWA7YU0qS0VnQlwrUEAwaEQ2bzlSOFQnRWFcJCdjLjNPcW4uJS5zLmFtRWZHSittQGY7bHFLIidHSF9qNl1OWVZSXi1gYCoqJnQwUT1TTE0yKWBlLSU4KDVpZT51PSE8R0h0ZSNrR1RNZ1siKl5XM3NBXjxnPShkXEQ4U1JeMEddM1BKUV9KXzxsNDJcTmJVU1xFcmxRb3FuKS1UOnNsTyoiS1ttWHAxTC8oRTM2YztzL1M0M2htZE9GZS9ILktUalNSPHVkNk9dISNaYGhRSW1vb10iRUIxLiU6QyY1XmQhJDgsSCdbPFlvQ1Nccl8qVyJaVlJYI3AzaDdZS2VMPHNTSGtCWiUsR2dZVj5GREFQSk46QWomPWA0LnNgXT1dMV5XdGgnLm1SUVgyaEprb3U3TTJPV0NhUCVnST8rLk4jRDB0JldYcmM/L0FUPnM2Qz9jMi8nPUhkWC9kZlljWl9KSSJkKFc3ZDs1OU0kayVdMkYiJUojM2BoaU80QW1IJDljWEYqY2BkM05ydXE+MSsoOFk9PkVARjdhak1vZD48TDZwLkVQXzwuOj1xQkZpMCEkRzk9OSVwMVZVZ1NwQVY5ajIoMlxNJnNEa04lanUkY3A9QXBTaXNiOTtuYCpJVEs4IkUpcTE7blUqZWsoPWYuZjNTZ0VdJmVWW29vXiptTmNhX0dFOkF0VFNoUTlHclcyTmpYWktxNUhJTzxuXGhFYylxY19RQkJCRXBCZ0BHNFBoWV1sKEg6Z24wMVprNmByT1VzL049aT49MF1iRWs+b1A4YSpUNERzPFY0dWVLRlZzRjA5S25kKCg4Vj9vRTA3WUMuJ2wiSDs+L2ZuckxYPUEqZzNdOl5uJl9FLEZFKzQvcE9LUyoncURVdDE+Z29wRSwvalg7Xj9PNkkxKSZ0W0khUSFAdTRjX1RxXHQiZVhYYS8paDo4QUtgIyZoRz5VKD41MyIoOGdlSmV0aXRzUkBYMkg5T1tXVFpERzN0IiJTbmo7UlZsX1tQN2JDWyNpPGooWVkiUm44UVBRLGIuXCwjKT1dN1ZAUE8+QS0rWTVKU2d0WVlYTFQxZVlcdG0+MVYnOUBMXkFHMDkvKDVEMmA9PiZfcjw4dUZGN1A5ZlcvXVJaTnVOZFEnPjo5QGw3MG0oazxaL1dbTkZvYXBCUzFWaVZCXmpQXXI1U0glRUg8LytjU1xHISo3SVlLWlA+PTFkbToxWzRQc2pWcDs0a2ZeIzRqXDw7amdlclg6XjF1MmtpVURnRS9WdEZuRDFML1pZMlBuUFZlaFZVP28iPEk/dCxLUENXQ1RRO1ZcJV9AcUUySWFOV2UwZk50aFNoM2BhYmguTmYmcj5mbSUiRjUjbUU6ZSghNEE0V34+ZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgMTkKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDYxIDAwMDAwIG4gCjAwMDAwMDAxMjMgMDAwMDAgbiAKMDAwMDAwMDIzMCAwMDAwMCBuIAowMDAwMDAwMzQyIDAwMDAwIG4gCjAwMDAwMDA1MjUgMDAwMDAgbiAKMDAwMDAwMDczMSAwMDAwMCBuIAowMDAwMDAwOTE0IDAwMDAwIG4gCjAwMDAwMDExMDQgMDAwMDAgbiAKMDAwMDAwMTIyMyAwMDAwMCBuIAowMDAwMDAxNDE0IDAwMDAwIG4gCjAwMDAwMDE2MTMgMDAwMDAgbiAKMDAwMDAwMTcyOSAwMDAwMCBuIAowMDAwMDAxOTEzIDAwMDAwIG4gCjAwMDAwMDIxMTUgMDAwMDAgbiAKMDAwMDAwMjM3NCAwMDAwMCBuIAowMDAwMDAyNDQ0IDAwMDAwIG4gCjAwMDAwMDI3MjUgMDAwMDAgbiAKMDAwMDAwMjc4NiAwMDAwMCBuIAp0cmFpbGVyCjw8Ci9JRCAKWzxmNzYyZmJjNDFlMGE0YzUwZGI4OWNjYTg1MmQwZTBhZT48Zjc2MmZiYzQxZTBhNGM1MGRiODljY2E4NTJkMGUwYWU+XQolIFJlcG9ydExhYiBnZW5lcmF0ZWQgUERGIGRvY3VtZW50IC0tIGRpZ2VzdCAob3BlbnNvdXJjZSkKCi9JbmZvIDE2IDAgUgovUm9vdCAxNSAwIFIKL1NpemUgMTkKPj4Kc3RhcnR4cmVmCjczMzQKJSVFT0YK";
 
-    function triggerDirectDownload(e) {
+    // State Variables
+    let stagedPdfBase64 = null;
+    let stagedPdfName = 'Akshat_Vishwakarma_Resume.pdf';
+    let stagedPdfSize = 0;
+
+    // Helper: Convert Base64 string to Uint8Array Blob
+    function base64ToBlob(b64, mimeType = 'application/pdf') {
+        const byteCharacters = atob(b64);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        return new Blob([byteArray], { type: mimeType });
+    }
+
+    // Helper: Trigger file download in browser
+    function downloadBlob(blob, filename) {
+        const blobUrl = URL.createObjectURL(blob);
+        const tempLink = document.createElement('a');
+        tempLink.href = blobUrl;
+        tempLink.download = filename;
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        setTimeout(() => {
+            document.body.removeChild(tempLink);
+            URL.revokeObjectURL(blobUrl);
+        }, 300);
+    }
+
+    // Helper: Format bytes
+    function formatBytes(bytes) {
+        if (!bytes || bytes === 0) return '0 B';
+        const k = 1024;
+        const sizes = ['B', 'KB', 'MB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+    }
+
+    // Get Active Resume Base64 (Local Override or Default Embedded)
+    function getActiveResumeBase64() {
+        const localCustom = localStorage.getItem('portfolio_custom_resume_b64');
+        if (localCustom && localCustom.length > 50) {
+            return localCustom;
+        }
+        return RESUME_B64;
+    }
+
+    // Public/Visitor Resume Download Handler
+    async function triggerDirectDownload(e) {
         if (e) {
             e.preventDefault();
             e.stopPropagation();
         }
-        try {
-            const byteCharacters = atob(RESUME_B64);
-            const byteNumbers = new Array(byteCharacters.length);
-            for (let i = 0; i < byteCharacters.length; i++) {
-                byteNumbers[i] = byteCharacters.charCodeAt(i);
+
+        // 1. Check if custom resume exists in localStorage
+        const localCustom = localStorage.getItem('portfolio_custom_resume_b64');
+        if (localCustom && localCustom.length > 50) {
+            try {
+                const blob = base64ToBlob(localCustom);
+                const filename = localStorage.getItem('portfolio_custom_resume_filename') || 'Akshat_Vishwakarma_Resume.pdf';
+                downloadBlob(blob, filename);
+                return;
+            } catch (err) {
+                console.warn('Local custom resume download failed, attempting network fetch:', err);
             }
-            const byteArray = new Uint8Array(byteNumbers);
-            const blob = new Blob([byteArray], { type: 'application/pdf' });
-            const blobUrl = URL.createObjectURL(blob);
-            
-            const tempLink = document.createElement('a');
-            tempLink.href = blobUrl;
-            tempLink.download = 'Akshat_Vishwakarma_Resume.pdf';
-            document.body.appendChild(tempLink);
-            tempLink.click();
-            setTimeout(() => {
-                document.body.removeChild(tempLink);
-                URL.revokeObjectURL(blobUrl);
-            }, 300);
-        } catch (err) {
-            console.error('Fallback download failed:', err);
+        }
+
+        // 2. Try fetching latest file from server with cache busting
+        try {
+            const resp = await fetch('Akshat_Vishwakarma_Resume.pdf?v=' + Date.now());
+            if (resp.ok) {
+                const blob = await resp.blob();
+                const sliceText = await blob.slice(0, 5).text();
+                if (sliceText.startsWith('%PDF')) {
+                    downloadBlob(blob, 'Akshat_Vishwakarma_Resume.pdf');
+                    return;
+                }
+            }
+        } catch (netErr) {
+            console.warn('Network resume fetch fallback to memory engine:', netErr);
+        }
+
+        // 3. Fallback to embedded in-memory RESUME_B64
+        try {
+            const blob = base64ToBlob(RESUME_B64);
+            downloadBlob(blob, 'Akshat_Vishwakarma_Resume.pdf');
+        } catch (memErr) {
+            console.error('All download mechanisms failed:', memErr);
             window.location.href = 'Akshat_Vishwakarma_Resume.pdf';
         }
     }
 
+    // Hook all download buttons on page
     function hookResumeButtons() {
         const resumeLinks = document.querySelectorAll('a[download*="Resume"], a[href*="Resume.pdf"], #nav-resume-btn, #hero-download-resume-btn, .hero-btn-resume');
         resumeLinks.forEach(el => {
+            el.removeEventListener('click', triggerDirectDownload, true);
             el.addEventListener('click', triggerDirectDownload, true);
         });
     }
 
+    // =========================================================================
+    // SECRET ADMIN VAULT ENGINE
+    // =========================================================================
+
+    const modal = document.getElementById('admin-vault-modal');
+    const authView = document.getElementById('admin-auth-view');
+    const dashboardView = document.getElementById('admin-dashboard-view');
+    const passInput = document.getElementById('admin-pass-input');
+    const passToggle = document.getElementById('admin-pass-toggle');
+    const passToggleIcon = document.getElementById('admin-pass-toggle-icon');
+    const authSubmitBtn = document.getElementById('admin-auth-submit-btn');
+    const authError = document.getElementById('admin-auth-error');
+    const authErrorText = document.getElementById('admin-auth-error-text');
+    const closeBtn = document.getElementById('admin-close-btn');
+    const logoutBtn = document.getElementById('admin-logout-btn');
+
+    // Dashboard Elements
+    const activeBadge = document.getElementById('admin-active-badge');
+    const activeFilename = document.getElementById('admin-active-filename');
+    const activeMeta = document.getElementById('admin-active-meta');
+    const previewActiveBtn = document.getElementById('admin-preview-active-btn');
+    const downloadActiveBtn = document.getElementById('admin-download-active-btn');
+
+    // Upload Elements
+    const dropzone = document.getElementById('admin-dropzone');
+    const filePicker = document.getElementById('admin-file-picker');
+    const stagedCard = document.getElementById('admin-staged-card');
+    const stagedName = document.getElementById('admin-staged-name');
+    const stagedSize = document.getElementById('admin-staged-size');
+    const stagedPreviewBtn = document.getElementById('admin-staged-preview-btn');
+    const stagedRemoveBtn = document.getElementById('admin-staged-remove-btn');
+
+    // GitHub Deploy Elements
+    const ghHelpToggle = document.getElementById('admin-gh-help-toggle');
+    const ghHelpBox = document.getElementById('admin-gh-help-box');
+    const ghTokenInput = document.getElementById('admin-gh-token-input');
+    const ghTokenToggle = document.getElementById('admin-gh-token-toggle');
+    const ghTokenToggleIcon = document.getElementById('admin-gh-token-toggle-icon');
+    const ghRemember = document.getElementById('admin-gh-remember');
+    const ghDeployBtn = document.getElementById('admin-gh-deploy-btn');
+    const ghStatus = document.getElementById('admin-gh-status');
+
+    // Local / Offline Buttons
+    const localApplyBtn = document.getElementById('admin-local-apply-btn');
+    const downloadPdfBtn = document.getElementById('admin-download-pdf-btn');
+    const downloadHtmlBtn = document.getElementById('admin-download-html-btn');
+    const resetDefaultBtn = document.getElementById('admin-reset-default-btn');
+
+    // Open Admin Modal
+    function openAdminVault() {
+        if (!modal) return;
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+
+        // Check if session is already authenticated
+        if (sessionStorage.getItem('akshat_admin_unlocked') === 'true') {
+            showDashboard();
+        } else {
+            showAuth();
+        }
+    }
+
+    // Close Admin Modal
+    function closeAdminVault() {
+        if (!modal) return;
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+        if (authError) authError.classList.add('hidden');
+        if (passInput) passInput.value = '';
+    }
+
+    // Show Auth Screen
+    function showAuth() {
+        if (authView) authView.classList.remove('hidden');
+        if (dashboardView) dashboardView.classList.add('hidden');
+        if (passInput) {
+            passInput.value = '';
+            setTimeout(() => passInput.focus(), 150);
+        }
+    }
+
+    // Show Dashboard Screen
+    function showDashboard() {
+        if (authView) authView.classList.add('hidden');
+        if (dashboardView) dashboardView.classList.remove('hidden');
+        refreshActiveResumeCard();
+
+        // Preload saved GitHub token if available
+        const savedToken = localStorage.getItem('akshat_gh_token');
+        if (savedToken && ghTokenInput) {
+            ghTokenInput.value = savedToken;
+        }
+    }
+
+    // Refresh Active Resume Details Card
+    function refreshActiveResumeCard() {
+        const localCustom = localStorage.getItem('portfolio_custom_resume_b64');
+        if (localCustom) {
+            const bytes = Math.round(localCustom.length * 0.75);
+            activeBadge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40';
+            activeBadge.textContent = 'Active (Custom Upload)';
+            activeFilename.textContent = localStorage.getItem('portfolio_custom_resume_filename') || 'Akshat_Vishwakarma_Resume.pdf';
+            const updatedTime = localStorage.getItem('portfolio_custom_resume_time') || 'Recently';
+            activeMeta.textContent = formatBytes(bytes) + ' • Custom Updated (' + updatedTime + ')';
+        } else {
+            const bytes = Math.round(RESUME_B64.length * 0.75);
+            activeBadge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+            activeBadge.textContent = 'Active (Default ATS)';
+            activeFilename.textContent = 'Akshat_Vishwakarma_Resume.pdf';
+            activeMeta.textContent = formatBytes(bytes) + ' • 1-Page ATS Standard • In-Memory Embedded';
+        }
+    }
+
+    // Verify Password: "manuram"
+    function verifyPassword() {
+        const entered = (passInput.value || '').trim();
+        if (entered === 'manuram') {
+            sessionStorage.setItem('akshat_admin_unlocked', 'true');
+            if (authError) authError.classList.add('hidden');
+            showDashboard();
+        } else {
+            if (authError) {
+                authError.classList.remove('hidden');
+                authErrorText.textContent = 'Access Denied: Incorrect password. Please try again.';
+            }
+            const container = document.getElementById('admin-vault-container');
+            if (container) {
+                container.classList.add('animate-shake');
+                setTimeout(() => container.classList.remove('animate-shake'), 450);
+            }
+            passInput.value = '';
+            passInput.focus();
+        }
+    }
+
+    // Toggle Password Visibility
+    if (passToggle && passInput && passToggleIcon) {
+        passToggle.addEventListener('click', () => {
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                passToggleIcon.textContent = 'visibility_off';
+            } else {
+                passInput.type = 'password';
+                passToggleIcon.textContent = 'visibility';
+            }
+        });
+    }
+
+    // Password Submit Events
+    if (authSubmitBtn) authSubmitBtn.addEventListener('click', verifyPassword);
+    if (passInput) {
+        passInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                verifyPassword();
+            }
+        });
+    }
+
+    // Logout
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            sessionStorage.removeItem('akshat_admin_unlocked');
+            showAuth();
+        });
+    }
+
+    // Close Button & Backdrop Click
+    if (closeBtn) closeBtn.addEventListener('click', closeAdminVault);
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeAdminVault();
+        });
+    }
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+            closeAdminVault();
+        }
+    });
+
+    // Preview Current Active Resume
+    if (previewActiveBtn) {
+        previewActiveBtn.addEventListener('click', () => {
+            try {
+                const b64 = getActiveResumeBase64();
+                const blob = base64ToBlob(b64);
+                const url = URL.createObjectURL(blob);
+                window.open(url, '_blank');
+                setTimeout(() => URL.revokeObjectURL(url), 60000);
+            } catch (err) {
+                alert('Could not preview PDF: ' + err.message);
+            }
+        });
+    }
+
+    // Test Download Active Resume
+    if (downloadActiveBtn) {
+        downloadActiveBtn.addEventListener('click', triggerDirectDownload);
+    }
+
+    // =========================================================================
+    // FILE UPLOAD & STAGING
+    // =========================================================================
+
+    function handleFileSelected(file) {
+        if (!file) return;
+        if (!file.name.toLowerCase().endsWith('.pdf') && file.type !== 'application/pdf') {
+            alert('Please select a valid PDF document (.pdf).');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const dataUrl = e.target.result;
+            stagedPdfBase64 = dataUrl.split(',')[1];
+            stagedPdfName = file.name || 'Akshat_Vishwakarma_Resume.pdf';
+            stagedPdfSize = file.size;
+
+            if (stagedName) stagedName.textContent = stagedPdfName;
+            if (stagedSize) stagedSize.textContent = formatBytes(stagedPdfSize) + ' • Ready to Deploy';
+            if (stagedCard) stagedCard.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    if (dropzone && filePicker) {
+        dropzone.addEventListener('click', () => filePicker.click());
+        filePicker.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                handleFileSelected(e.target.files[0]);
+            }
+        });
+
+        // Drag and Drop
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropzone.classList.add('border-cyan-400', 'bg-cyan-950/30');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropzone.classList.remove('border-cyan-400', 'bg-cyan-950/30');
+            });
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
+                handleFileSelected(e.dataTransfer.files[0]);
+            }
+        });
+    }
+
+    // Staged Preview
+    if (stagedPreviewBtn) {
+        stagedPreviewBtn.addEventListener('click', () => {
+            if (!stagedPdfBase64) return;
+            const blob = base64ToBlob(stagedPdfBase64);
+            const url = URL.createObjectURL(blob);
+            window.open(url, '_blank');
+            setTimeout(() => URL.revokeObjectURL(url), 60000);
+        });
+    }
+
+    // Staged Remove
+    if (stagedRemoveBtn) {
+        stagedRemoveBtn.addEventListener('click', () => {
+            stagedPdfBase64 = null;
+            if (filePicker) filePicker.value = '';
+            if (stagedCard) stagedCard.classList.add('hidden');
+        });
+    }
+
+    // =========================================================================
+    // LOCAL SYNC & DOWNLOADS
+    // =========================================================================
+
+    function applyLocally(notify = true) {
+        const targetB64 = stagedPdfBase64 || getActiveResumeBase64();
+        if (!targetB64) {
+            alert('Please select or upload a resume PDF first.');
+            return;
+        }
+
+        const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' });
+        localStorage.setItem('portfolio_custom_resume_b64', targetB64);
+        localStorage.setItem('portfolio_custom_resume_filename', stagedPdfName || 'Akshat_Vishwakarma_Resume.pdf');
+        localStorage.setItem('portfolio_custom_resume_time', now);
+
+        refreshActiveResumeCard();
+        hookResumeButtons();
+
+        // Also ping local server if running
+        try {
+            fetch('/api/save-resume', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    pdfBase64: targetB64,
+                    filename: 'Akshat_Vishwakarma_Resume.pdf'
+                })
+            }).catch(() => {});
+        } catch (_) {}
+
+        if (notify) {
+            alert('✅ Resume applied successfully! All resume download buttons on this browser now serve your updated resume.');
+        }
+    }
+
+    if (localApplyBtn) {
+        localApplyBtn.addEventListener('click', () => applyLocally(true));
+    }
+
+    // Download PDF file directly
+    if (downloadPdfBtn) {
+        downloadPdfBtn.addEventListener('click', () => {
+            const b64 = stagedPdfBase64 || getActiveResumeBase64();
+            const blob = base64ToBlob(b64);
+            downloadBlob(blob, 'Akshat_Vishwakarma_Resume.pdf');
+        });
+    }
+
+    // Download updated index.html with new embedded base64
+    if (downloadHtmlBtn) {
+        downloadHtmlBtn.addEventListener('click', () => {
+            const b64 = stagedPdfBase64 || getActiveResumeBase64();
+            let htmlText = document.documentElement.outerHTML;
+            htmlText = '<!DOCTYPE html>\n' + htmlText.replace(/const RESUME_B64 = "[^"]+";/, 'const RESUME_B64 = "' + b64 + '";');
+            const blob = new Blob([htmlText], { type: 'text/html' });
+            downloadBlob(blob, 'index.html');
+        });
+    }
+
+    // Reset to Default Resume
+    if (resetDefaultBtn) {
+        resetDefaultBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to revert to the default 1-page ATS resume?')) {
+                localStorage.removeItem('portfolio_custom_resume_b64');
+                localStorage.removeItem('portfolio_custom_resume_filename');
+                localStorage.removeItem('portfolio_custom_resume_time');
+                stagedPdfBase64 = null;
+                if (stagedCard) stagedCard.classList.add('hidden');
+                refreshActiveResumeCard();
+                hookResumeButtons();
+                alert('Restored default ATS resume.');
+            }
+        });
+    }
+
+    // =========================================================================
+    // GITHUB & VERCEL AUTOMATED PRODUCTION DEPLOYMENT
+    // =========================================================================
+
+    if (ghHelpToggle && ghHelpBox) {
+        ghHelpToggle.addEventListener('click', () => {
+            ghHelpBox.classList.toggle('hidden');
+        });
+    }
+
+    if (ghTokenToggle && ghTokenInput && ghTokenToggleIcon) {
+        ghTokenToggle.addEventListener('click', () => {
+            if (ghTokenInput.type === 'password') {
+                ghTokenInput.type = 'text';
+                ghTokenToggleIcon.textContent = 'visibility_off';
+            } else {
+                ghTokenInput.type = 'password';
+                ghTokenToggleIcon.textContent = 'visibility';
+            }
+        });
+    }
+
+    function appendStatusLog(text, colorClass = 'text-slate-300') {
+        if (!ghStatus) return;
+        ghStatus.classList.remove('hidden');
+        const p = document.createElement('p');
+        p.className = colorClass;
+        p.textContent = text;
+        ghStatus.appendChild(p);
+        ghStatus.scrollTop = ghStatus.scrollHeight;
+    }
+
+    async function deployLiveToGitHub() {
+        const token = (ghTokenInput.value || '').trim();
+        if (!token) {
+            alert('Please enter your GitHub Personal Access Token to deploy live.');
+            ghTokenInput.focus();
+            return;
+        }
+
+        const b64 = stagedPdfBase64 || getActiveResumeBase64();
+        if (!b64) {
+            alert('Please select or upload a resume PDF first.');
+            return;
+        }
+
+        // Save token if requested
+        if (ghRemember && ghRemember.checked) {
+            localStorage.setItem('akshat_gh_token', token);
+        } else {
+            localStorage.removeItem('akshat_gh_token');
+        }
+
+        // Apply locally too
+        applyLocally(false);
+
+        // UI Loading State
+        ghDeployBtn.disabled = true;
+        ghDeployBtn.innerHTML = '<span class="material-symbols-outlined text-lg animate-spin">refresh</span><span>Deploying to Vercel...</span>';
+        ghStatus.innerHTML = '';
+        ghStatus.classList.remove('hidden');
+
+        const owner = 'Akshat-vishwakarm';
+        const repo = 'portfolio';
+        const branch = 'main';
+        const pdfPath = 'Akshat_Vishwakarma_Resume.pdf';
+        const headers = {
+            'Authorization': 'token ' + token,
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+        };
+
+        try {
+            appendStatusLog('📡 Step 1/4: Querying GitHub repository (' + owner + '/' + repo + ')...', 'text-cyan-300');
+
+            // 1. Get SHA for Akshat_Vishwakarma_Resume.pdf
+            let pdfSha = null;
+            const pdfCheckResp = await fetch('https://api.github.com/repos/' + owner + '/' + repo + '/contents/' + pdfPath + '?ref=' + branch, { headers });
+            if (pdfCheckResp.ok) {
+                const pdfData = await pdfCheckResp.json();
+                pdfSha = pdfData.sha;
+                appendStatusLog('✔ Found existing PDF file on main branch (SHA: ' + pdfSha.slice(0, 7) + ')', 'text-slate-400');
+            } else if (pdfCheckResp.status === 404) {
+                appendStatusLog('ℹ PDF does not exist yet on remote, creating new file...', 'text-slate-400');
+            } else if (pdfCheckResp.status === 401) {
+                throw new Error('Invalid GitHub token. Check token permissions (must have "repo" scope).');
+            } else {
+                throw new Error('GitHub API check failed: ' + pdfCheckResp.statusText);
+            }
+
+            // 2. Commit updated PDF to GitHub
+            appendStatusLog('📄 Step 2/4: Committing ' + pdfPath + ' to GitHub main branch...', 'text-cyan-300');
+            const pdfPayload = {
+                message: 'feat: update resume PDF via Admin Vault',
+                content: b64,
+                branch: branch
+            };
+            if (pdfSha) pdfPayload.sha = pdfSha;
+
+            const putPdfResp = await fetch('https://api.github.com/repos/' + owner + '/' + repo + '/contents/' + pdfPath, {
+                method: 'PUT',
+                headers: headers,
+                body: JSON.stringify(pdfPayload)
+            });
+
+            if (!putPdfResp.ok) {
+                const errJson = await putPdfResp.json();
+                throw new Error(errJson.message || 'Failed to commit PDF file to GitHub');
+            }
+            appendStatusLog('✔ Successfully committed updated ' + pdfPath + '!', 'text-emerald-400');
+
+            // 3. Update embedded RESUME_B64 in index.html on GitHub
+            appendStatusLog('⚡ Step 3/4: Updating embedded backup in index.html on GitHub...', 'text-cyan-300');
+            const htmlCheckResp = await fetch('https://api.github.com/repos/' + owner + '/' + repo + '/contents/index.html?ref=' + branch, { headers });
+            if (htmlCheckResp.ok) {
+                const htmlData = await htmlCheckResp.json();
+                const currentSha = htmlData.sha;
+                const decodedHtml = decodeURIComponent(escape(atob(htmlData.content.replace(/\\s/g, ''))));
+
+                if (decodedHtml.includes('const RESUME_B64 = "')) {
+                    const updatedHtml = decodedHtml.replace(/const RESUME_B64 = "[^"]+";/, 'const RESUME_B64 = "' + b64 + '";');
+                    const updatedB64 = btoa(unescape(encodeURIComponent(updatedHtml)));
+
+                    const putHtmlResp = await fetch('https://api.github.com/repos/' + owner + '/' + repo + '/contents/index.html', {
+                        method: 'PUT',
+                        headers: headers,
+                        body: JSON.stringify({
+                            message: 'chore: sync embedded resume base64 in index.html',
+                            content: updatedB64,
+                            sha: currentSha,
+                            branch: branch
+                        })
+                    });
+
+                    if (putHtmlResp.ok) {
+                        appendStatusLog('✔ Successfully synchronized embedded backup in index.html!', 'text-emerald-400');
+                    } else {
+                        appendStatusLog('⚠ Note: index.html sync skipped, but PDF was successfully published.', 'text-amber-400');
+                    }
+                }
+            }
+
+            // 4. Success State
+            appendStatusLog('🎉 Step 4/4: Vercel automatic deployment triggered!', 'text-emerald-300 font-bold');
+            appendStatusLog('🚀 All recruiters and visitors worldwide will now receive this updated resume in ~15-20 seconds!', 'text-cyan-300');
+
+            refreshActiveResumeCard();
+            alert('🎉 SUCCESS! Your new resume was committed to GitHub and is now being deployed live by Vercel to everyone worldwide!');
+
+        } catch (error) {
+            console.error('Deployment error:', error);
+            appendStatusLog('❌ Deployment Failed: ' + error.message, 'text-rose-400 font-bold');
+            alert('Deployment Error: ' + error.message);
+        } finally {
+            ghDeployBtn.disabled = false;
+            ghDeployBtn.innerHTML = '<span class="material-symbols-outlined text-lg">cloud_sync</span><span>🚀 Publish &amp; Deploy Live to World (Vercel)</span>';
+        }
+    }
+
+    if (ghDeployBtn) {
+        ghDeployBtn.addEventListener('click', deployLiveToGitHub);
+    }
+
+    // =========================================================================
+    // TRIPLE-CLICK DETECTOR ENGINE ON AKSHAT LOGO
+    // =========================================================================
+
+    let akshatClickCount = 0;
+    let akshatClickTimer = null;
+
+    function handleAkshatLogoClick(e) {
+        akshatClickCount++;
+
+        // Tactile micro-animation
+        const target = e.currentTarget;
+        if (target) {
+            target.style.transform = 'scale(0.92)';
+            setTimeout(() => { target.style.transform = ''; }, 120);
+        }
+
+        clearTimeout(akshatClickTimer);
+        akshatClickTimer = setTimeout(() => {
+            akshatClickCount = 0;
+        }, 2200);
+
+        if (akshatClickCount >= 3) {
+            akshatClickCount = 0;
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            openAdminVault();
+        }
+    }
+
+    // Attach to Navbar and Footer Brand Logos
+    const navLogo = document.getElementById('nav-brand-logo');
+    if (navLogo) {
+        navLogo.addEventListener('click', handleAkshatLogoClick);
+    }
+
+    const footerLogo = document.getElementById('footer-brand-logo');
+    if (footerLogo) {
+        footerLogo.addEventListener('click', handleAkshatLogoClick);
+    }
+
+    // Global Keyboard Shortcut: Ctrl + Shift + A
+    window.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'a') {
+            e.preventDefault();
+            openAdminVault();
+        }
+    });
+
+    // Initialize buttons
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', hookResumeButtons);
     } else {
